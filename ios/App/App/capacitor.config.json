@@ -1,0 +1,6 @@
+{
+  "appId": "us.platan.hammobile",
+  "appName": "ham-mobile",
+  "bundledWebRuntime": false,
+  "webDir": "www"
+}

@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">ham-mobile</string>
+    <string name="title_activity_main">ham-mobile</string>
+    <string name="package_name">us.platan.hammobile</string>
+    <string name="fileprovider_authority">us.platan.hammobile.fileprovider</string>
+    <string name="custom_url_scheme">us.platan.hammobile</string>
+</resources>
