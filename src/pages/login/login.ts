@@ -1,7 +1,9 @@
+import { HTTP } from '@ionic-native/http';
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
 import { Storage } from "@capacitor/core";
+<<<<<<< HEAD
 import { TabsPage } from '../tabs/tabs';
 import { HTTP } from '@ionic-native/http';
 
@@ -11,6 +13,9 @@ import { HTTP } from '@ionic-native/http';
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
  */
+=======
+import { TabsPage } from '../tabs/tabs';;
+>>>>>>> feat(): current lunchers + current karma
 
 @IonicPage()
 @Component({
@@ -21,26 +26,36 @@ import { HTTP } from '@ionic-native/http';
 export class LoginPage {
   authForm: FormGroup;
 
+<<<<<<< HEAD
   constructor(public navCtrl: NavController, public navParams: NavParams, public formBuilder: FormBuilder, private http: HTTP) {
+=======
+  constructor(public navCtrl: NavController, public navParams: NavParams,
+    public formBuilder: FormBuilder, private http: HTTP, private toastCtrl: ToastController){
+>>>>>>> feat(): current lunchers + current karma
     this.authForm = formBuilder.group({
       hamcode: ['', Validators.compose([Validators.required, Validators.minLength(4), Validators.maxLength(10)])],
   });
   }
 
   ionViewDidLoad() {
-    this.checkCredentials().then((result) => {
-      const userName = result.value
-      if(userName){
+    this.checkHamCode().then((result) => {
+      const hamcode = result.value
+      if(hamcode && parseInt(hamcode) >= 0){
         this.navCtrl.push(TabsPage)
       }
     })
   }
 
-  logChange(event) {
-    console.log(event)
+  displayError(message) {
+    let toast = this.toastCtrl.create({
+      message: message,
+      duration: 2000,
+      position: 'bottom'
+    });
+    toast.present();
   }
 
-  checkCredentials() {
+  checkHamCode() {
     const hamcode = Storage.get({ key: 'hamcode' })
     return hamcode
   }
@@ -49,8 +64,20 @@ export class LoginPage {
     this.sendCode(value.hamcode)
   }
 
+  async storeInitialData(code, karma){
+    await Storage.set({
+      key: 'karma',
+      value: karma
+    })
+    await Storage.set({
+      key: 'hamcode',
+      value: code
+    })
+  }
+
   sendCode(code) {
     if(!code) return
+<<<<<<< HEAD
     console.log('AFTER RETURN')
 
     this.http.get('https://pl-ham.herokuapp.com/karma', {}, {
@@ -66,5 +93,24 @@ export class LoginPage {
                           console.log("ERROR :( ", JSON.stringify(err))
                         }
                       )
+=======
+    const headers ={
+      'Content-Type':  'application/json',
+      'X-AUTH': code
+    }
+
+    this.http.get('http://pl-ham.herokuapp.com/karma', {}, headers)
+      .then(
+        response => {
+          const karma = JSON.parse(response.data).karma
+          this.storeInitialData(code, karma)
+          this.navCtrl.push(TabsPage)
+        },
+        err => {
+          const errorMessage = JSON.parse(err.error).message
+          this.displayError(errorMessage)
+        }
+      )
+>>>>>>> feat(): current lunchers + current karma
   }
 }
