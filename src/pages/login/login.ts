@@ -1,9 +1,7 @@
-import { HTTP } from '@ionic-native/http';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
 import { Storage } from "@capacitor/core";
-<<<<<<< HEAD
 import { TabsPage } from '../tabs/tabs';
 import { HTTP } from '@ionic-native/http';
 
@@ -13,9 +11,6 @@ import { HTTP } from '@ionic-native/http';
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
  */
-=======
-import { TabsPage } from '../tabs/tabs';;
->>>>>>> feat(): current lunchers + current karma
 
 @IonicPage()
 @Component({
@@ -26,12 +21,8 @@ import { TabsPage } from '../tabs/tabs';;
 export class LoginPage {
   authForm: FormGroup;
 
-<<<<<<< HEAD
-  constructor(public navCtrl: NavController, public navParams: NavParams, public formBuilder: FormBuilder, private http: HTTP) {
-=======
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public formBuilder: FormBuilder, private http: HTTP, private toastCtrl: ToastController){
->>>>>>> feat(): current lunchers + current karma
     this.authForm = formBuilder.group({
       hamcode: ['', Validators.compose([Validators.required, Validators.minLength(4), Validators.maxLength(10)])],
   });
@@ -77,23 +68,6 @@ export class LoginPage {
 
   sendCode(code) {
     if(!code) return
-<<<<<<< HEAD
-    console.log('AFTER RETURN')
-
-    this.http.get('https://pl-ham.herokuapp.com/karma', {}, {
-      'Content-Type':  'application/json',
-      'X-AUTH': code
-    })
-                      .then(
-                        data => {
-                          console.log("DATA?")
-                          alert(data)
-                        },
-                        err => {
-                          console.log("ERROR :( ", JSON.stringify(err))
-                        }
-                      )
-=======
     const headers ={
       'Content-Type':  'application/json',
       'X-AUTH': code
@@ -111,6 +85,5 @@ export class LoginPage {
           this.displayError(errorMessage)
         }
       )
->>>>>>> feat(): current lunchers + current karma
   }
 }
