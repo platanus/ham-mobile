@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/fo
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Storage } from "@capacitor/core";
 import { TabsPage } from '../tabs/tabs';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HTTP } from '@ionic-native/http';
 
 /**
  * Generated class for the LoginPage page.
@@ -21,7 +21,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 export class LoginPage {
   authForm: FormGroup;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public formBuilder: FormBuilder, private httpClient: HttpClient) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public formBuilder: FormBuilder, private http: HTTP) {
     this.authForm = formBuilder.group({
       hamcode: ['', Validators.compose([Validators.required, Validators.minLength(4), Validators.maxLength(10)])],
   });
@@ -52,15 +52,12 @@ export class LoginPage {
   sendCode(code) {
     if(!code) return
     console.log('AFTER RETURN')
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type':  'application/json',
-        'X-AUTH': code
-      })
-    };
 
-    this.httpClient.get('http://pl-ham.herokuapp.com/karma', httpOptions)
-                      .subscribe(
+    this.http.get('https://pl-ham.herokuapp.com/karma', {}, {
+      'Content-Type':  'application/json',
+      'X-AUTH': code
+    })
+                      .then(
                         data => {
                           console.log("DATA?")
                           alert(data)
