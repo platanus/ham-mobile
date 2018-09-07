@@ -2,5 +2,11 @@
   "name": "ham-mobile",
   "integrations": {},
   "type": "ionic-angular",
-  "pro_id": "8ffede1f"
+  "pro_id": "8ffede1f",
+  "proxies": [
+    {
+      "path": "/karma",
+      "proxyUrl": "http://pl-ham.herokuapp.com/karma"
+    }
+  ]
 }

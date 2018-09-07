@@ -1,18 +1,19 @@
-<!--
-  Generated template for the LoginPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
 
   <ion-navbar>
-    <ion-title>Login</ion-title>
+    <ion-title>Ham</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
-
+  <form [formGroup]="authForm" (ngSubmit)="onSubmit(authForm.value)">
+    <ion-item>
+      <ion-input formControlName="hamcode" type="text" required placeholder="Dile a ham authme! Pega el código acá"></ion-input>
+    </ion-item>
+    <ion-item>
+      <button ion-button full (click)="sendCode()">Enviar</button>
+    </ion-item>
+  </form>
 </ion-content>
