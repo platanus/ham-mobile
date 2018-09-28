@@ -6,21 +6,91 @@ page-login {
     background-size: cover;
   }
 
+  .star{
+    border-radius: 50%;
+    background: white;
+    opacity: 0.3;
+    position: absolute;
+
+    &.small{
+      width: 3pt;
+      height: 3pt;
+    }
+    &.medium{
+      width: 6pt;
+      height: 6pt;
+    }
+
+    &.big{
+      width: 10pt;
+      height: 10pt;
+    }
+
+    &.bright{
+      opacity: 1;
+    }
+  }
+
+  ion-input{
+    margin: 15px auto;
+    border-bottom: 2px solid black;
+    width: 70%;
+  }
+
+  ::placeholder {
+    color: white;
+  }
+
   ion-footer{
     bottom: 20px;
     button.login{
-      color: #6949FF;
-      border-radius: 12px;
-      font-family: "Work Sans";
-      font-size: 20px;
-      font-weight: 400;
-      letter-spacing: 0.8px;
-      line-height: 24px;
-      text-align: center;
-      background-color: white;
-      height: 80px;
+      height: 50px;
       width: 208px;
-      box-shadow: 0 16px 24px 0 rgba(42,70,104,0.48);
+      -webkit-box-shadow: 0px 6px 0px #DCEBFD, 0px 3px 15px rgba(0,0,0,.4);
+      -moz-box-shadow: 0px 6px 0px #DCEBFD, 0px 3px 15px rgba(0,0,0,.4);
+      box-shadow: 0px 6px 0px #DCEBFD, 0px 3px 15px rgba(0,0,0,.4);
+      margin: auto;
+      font-size: 20px;
+      display: block;
+      background: white;
+      letter-spacing: 0.8px;
+      color: #6949FF;
+      padding: 1em 2em;
+      border: 0;
+      border-radius: 12px;
+      line-height: 24px;
     }
+
+    .clicky {
+      /** Offset the Position **/
+      position: relative;
+      top: 0;
+      margin-top: 0;
+      margin-bottom: 10px;
+
+      /** 3D Block Effect **/
+      -webkit-box-shadow: 0px 6px 0px #DCEBFD, 0px 3px 15px rgba(0,0,0,.4);
+      -moz-box-shadow: 0px 6px 0px #DCEBFD, 0px 3px 15px rgba(0,0,0,.4);
+      box-shadow: 0px 6px 0px #DCEBFD, 0px 3px 15px rgba(0,0,0,.4);
+
+      &:active {
+        /** Remove 3D Block Effect on Click **/
+        box-shadow: none;
+        top: 3px;
+        background: white;
+        margin-bottom: 0;
+      }
+
+      &:hover {
+        opacity: 1;
+        background: white;
+      }
+
+      &:active,&:focus{
+        outline: 0;
+        background: white;
+      }
+    }
+
   }
 }
