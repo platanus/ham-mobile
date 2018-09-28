@@ -25,7 +25,7 @@ export class LoginPage {
     public formBuilder: FormBuilder, private http: HTTP, private toastCtrl: ToastController){
     this.authForm = formBuilder.group({
       hamcode: ['', Validators.compose([Validators.required, Validators.minLength(4), Validators.maxLength(10)])],
-  });
+    });
   }
 
   ionViewDidLoad() {

@@ -1,19 +1,8 @@
-<ion-header>
-
-  <ion-navbar>
-    <ion-title>Ham</ion-title>
-  </ion-navbar>
-
-</ion-header>
-
-
-<ion-content padding>
-  <form [formGroup]="authForm" (ngSubmit)="onSubmit(authForm.value)">
-    <ion-item>
+<ion-content no-bounce padding class="bg-image">
+  <ion-footer>
+    <form text-center [formGroup]="authForm" (ngSubmit)="onSubmit(authForm.value)">
       <ion-input formControlName="hamcode" type="text" required placeholder="Dile a ham authme! Pega el código acá"></ion-input>
-    </ion-item>
-    <ion-item>
-      <button ion-button full (click)="sendCode()">Enviar</button>
-    </ion-item>
-  </form>
+      <button class="login"	ion-button (click)="sendCode()">Login</button>
+    </form>
+  </ion-footer>
 </ion-content>
