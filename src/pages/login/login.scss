@@ -33,12 +33,14 @@ page-login {
 
   ion-input{
     margin: 15px auto;
-    border-bottom: 2px solid black;
+    border-bottom: 2px solid white;
     width: 70%;
+    color: white;
+    caret-color: white;
   }
 
-  ::placeholder {
-    color: white;
+  input.text-input::placeholder {
+    color: white!important;
   }
 
   ion-footer{
