@@ -1,7 +1,8 @@
 {
   "name": "ham-mobile",
   "integrations": {
-    "cordova": {}
+    "cordova": {},
+    "capacitor": {}
   },
   "type": "ionic-angular",
   "pro_id": "8ffede1f",

@@ -1,5 +1,5 @@
 {
-  "appId": "us.platan.hammobile",
+  "appId": "io.ionic.starter",
   "appName": "ham-mobile",
   "bundledWebRuntime": false,
   "webDir": "www"
