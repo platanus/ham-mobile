@@ -1,22 +1,21 @@
 page-market {
-
-    ion-card{
-      text-align: center;
-      justify-content: 'center';
-      align-items: 'center'
-    }
-
-    .bottom{
-      position: relative;
-      bottom: 2px;
-      text-align: center;
-    }
-
-    .orden{
-      height: 75px;
-    }
-    .topmargin{
-      margin-top:30px;
+  ion-card {
+    text-align: center;
+    justify-content: 'center';
+    align-items: 'center';
   }
-  
+
+  .bottom {
+    position: relative;
+    bottom: 2px;
+  }
+
+  .orden {
+    height: 75px;
+  }
+
+  .topmargin {
+    margin-top: 30px;
+  }
+
 }

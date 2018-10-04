@@ -1,8 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
-import { Storage } from "@capacitor/core";
-import { HTTP } from '@ionic-native/http';
-
+import { Storage } from '@capacitor/core';
 
 @Component({
   selector: 'page-market',

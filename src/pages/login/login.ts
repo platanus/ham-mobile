@@ -81,7 +81,6 @@ export class LoginPage {
           this.navCtrl.push(TabsPage)
         },
         err => {
-          console.log(err)
           const errorMessage = JSON.parse(err.error).message
           this.displayError(errorMessage)
         }
