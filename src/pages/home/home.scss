@@ -1,19 +1,22 @@
 .page-home {
-  background-color: #DCEBFD;
+  background-color: #dcebfd;
+
   .header {
     font-size: 18pt;
     margin-top: 10pt;
     margin-bottom: 10pt;
     padding: 0 10pt;
+
     img {
       height: 28pt;
       width: 28pt;
     }
   }
-  ion-item{
-    border-color: white;
-    &.stripped{
-      background: repeating-linear-gradient(45deg, #F6FAFC, #F6FAFC 15px, white 15px, white 30px);
+
+  ion-item {
+    border-color: #fff;
+    &.stripped {
+      background: repeating-linear-gradient(45deg, #f6fafc, #f6fafc 15px, #fff 15px, #fff 30px);
     }
   }
 }
