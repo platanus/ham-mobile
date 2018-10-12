@@ -1,0 +1,42 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Market
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-grid>
+    <ion-card class='orden'>
+      <ion-card-header>
+        Órdenes de venta:
+      </ion-card-header>
+      <ion-card-content>
+        <h4>xxx</h4>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card class='topmargin'>
+      <ion-col col-6>
+        <button ion-button icon-start large (click)='sell()'>
+          <ion-icon name='logo-bitcoin'></ion-icon>
+          Sell
+        </button>
+      </ion-col>
+
+      <ion-col col-6>
+        <button ion-button icon-start large (click)='buy()'>
+          <ion-icon name='md-cash'></ion-icon>
+          Buy
+        </button>
+      </ion-col>
+    </ion-card>
+
+    <ion-card  class='bottom'>
+      <ion-card-content>
+        <p>Mi Karma: {{karma}}</p>
+      </ion-card-content>
+    </ion-card>
+  </ion-grid>
+</ion-content>

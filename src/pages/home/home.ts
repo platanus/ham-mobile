@@ -8,19 +8,19 @@ import { Storage } from "@capacitor/core";
   templateUrl: 'home.html'
 })
 export class HomePage {
-  karma: string
-  hamcode: string
-  lunchers: any
-  lunchersAmount: any
+  private karma: string
+  private hamcode: string
+  private lunchers: any
+  private lunchersAmount: any
 
   constructor(public navCtrl: NavController, private http: HTTP, private toastCtrl: ToastController){
     Storage.get({key: 'karma'}).then((resp) => {
-      this.karma = resp.value
+      this.karma = resp.value;
     })
     Storage.get({key: 'hamcode'}).then((resp) => {
       const hamcode = resp.value
-      this.updateKarma(hamcode)
-      this.getWinningLunchers(hamcode)
+      this.updateKarma(hamcode);
+      this.getWinningLunchers(hamcode);
     })
 
   }
@@ -34,16 +34,16 @@ export class HomePage {
     this.http.get('http://pl-ham.herokuapp.com/karma', {}, headers)
     .then(
       response => {
-        const karma = JSON.parse(response.data).karma
-        this.karma = karma
+        const karma = JSON.parse(response.data).karma;
+        this.karma = karma;
         Storage.set({
           key: 'karma',
           value: karma
         })
       },
       err => {
-        const errorMessage = JSON.parse(err.error).message
-        this.showToast(errorMessage)
+        const errorMessage = JSON.parse(err.error).message;
+        this.showToast(errorMessage);
       }
     )
   }
@@ -58,13 +58,13 @@ export class HomePage {
     this.http.get('http://pl-ham.herokuapp.com/winning_lunchers', {}, headers)
     .then(
       response => {
-        const lunchers = JSON.parse(response.data).winning_lunchers
-        this.lunchers = lunchers
-        this.lunchersAmount = lunchers.length
+        const lunchers = JSON.parse(response.data).winning_lunchers;
+        this.lunchers = lunchers;
+        this.lunchersAmount = lunchers.length;
       },
       err => {
-        const errorMessage = JSON.parse(err.error).message
-        this.showToast(errorMessage)
+        const errorMessage = JSON.parse(err.error).message;
+        this.showToast(errorMessage);
       }
     )
   }
@@ -88,19 +88,19 @@ export class HomePage {
     this.http.get('http://pl-ham.herokuapp.com/current_lunchers', {}, headers)
     .then(
       response => {
-        const wantToLunch = JSON.parse(response.data).current_lunchers.length
-        this.showToast('Hmm.. Ya van ' + wantToLunch + ' que les gustaría almorzar aquí hoy.')
+        const wantToLunch = JSON.parse(response.data).current_lunchers.length;
+        this.showToast('Hmm.. Ya van ' + wantToLunch + ' que les gustaría almorzar aquí hoy.');
       },
       err => {
-        const errorMessage = JSON.parse(err.error).message
-        this.showToast(errorMessage)
+        const errorMessage = JSON.parse(err.error).message;
+        this.showToast(errorMessage);
       }
     )
   }
 
   willLunch(){
     Storage.get({key: 'hamcode'}).then((resp) => {
-      const hamcode = resp.value
+      const hamcode = resp.value;
       const headers = {
         'Content-Type':  'application/json',
         'X-AUTH': hamcode
@@ -109,16 +109,16 @@ export class HomePage {
       this.http.post('http://pl-ham.herokuapp.com/current_lunchers', {}, headers)
       .then(
         response => {
-          const success = JSON.parse(response.data).success
+          const success = JSON.parse(response.data).success;
           if(success){
-            this.howManyWantToLunch(hamcode)
+            this.howManyWantToLunch(hamcode);
           } else {
-            this.showToast("Error :( ")
+            this.showToast("Error :( ");
           }
         },
         err => {
-          const errorMessage = JSON.parse(err.error).message
-          this.showToast(errorMessage)
+          const errorMessage = JSON.parse(err.error).message;
+          this.showToast(errorMessage);
         }
       )
     })
