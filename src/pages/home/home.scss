@@ -10,10 +10,11 @@
       width: 28pt;
     }
   }
-  ion-item{
-    border-color: white;
-    &.stripped{
-      background: repeating-linear-gradient(45deg, #F6FAFC, #F6FAFC 15px, white 15px, white 30px);
+
+  ion-item {
+    border-color: #ffffff;
+    &.stripped {
+      background: repeating-linear-gradient(45deg, #f6fafc, #f6fafc 15px, #ffffff 15px, #ffffff 30px);
     }
   }
 }

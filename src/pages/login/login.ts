@@ -32,7 +32,7 @@ export class LoginPage {
     this.checkHamCode().then((result) => {
       const hamcode = result.value
       if(hamcode && parseInt(hamcode) >= 0){
-        this.navCtrl.push(HomePage)
+        this.navCtrl.push(HomePage);
       }
     })
   }
@@ -78,7 +78,7 @@ export class LoginPage {
         response => {
           const karma = JSON.parse(response.data).karma
           this.storeInitialData(code, karma)
-          this.navCtrl.push(HomePage)
+          this.navCtrl.push(HomePage);
         },
         err => {
           const errorMessage = JSON.parse(err.error).message
