@@ -6,9 +6,9 @@ android {
         applicationId "us.platan.hammobile"
         minSdkVersion 21
         targetSdkVersion 27
-        versionName '2'
+        versionName '3'
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-        versionCode 2
+        versionCode 3
     }
     buildTypes {
         release {
