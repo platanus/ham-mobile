@@ -11,6 +11,7 @@ export class HomePage {
   karma: string
   hamcode: string
   lunchers: any
+  lunchersAmount: any
 
   constructor(public navCtrl: NavController, private http: HTTP, private toastCtrl: ToastController){
     Storage.get({key: 'karma'}).then((resp) => {
@@ -59,6 +60,7 @@ export class HomePage {
       response => {
         const lunchers = JSON.parse(response.data).winning_lunchers
         this.lunchers = lunchers
+        this.lunchersAmount = lunchers.length
       },
       err => {
         const errorMessage = JSON.parse(err.error).message

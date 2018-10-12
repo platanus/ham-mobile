@@ -3,7 +3,6 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
 import { Storage } from "@capacitor/core";
-import { TabsPage } from '../tabs/tabs';
 import { HTTP } from '@ionic-native/http';
 
 /**
@@ -79,7 +78,7 @@ export class LoginPage {
         response => {
           const karma = JSON.parse(response.data).karma
           this.storeInitialData(code, karma)
-          this.navCtrl.push(TabsPage)
+          this.navCtrl.push(HomePage)
         },
         err => {
           const errorMessage = JSON.parse(err.error).message

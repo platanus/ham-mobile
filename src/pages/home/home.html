@@ -1,24 +1,34 @@
-<ion-content padding>
+<ion-content class="page-home">
   <ion-grid>
-    <ion-row>
-      <ion-col col-12>
-        <ion-card>
-          <ion-card-header>
-            Mi Karma
-          </ion-card-header>
-          <ion-card-content>
-            <h2>{{karma}}</h2>
-          </ion-card-content>
-        </ion-card>
+    <ion-row justify-content-between class="header">
+      <ion-col class="greet" style="line-height: 36px;">
+        <span>Aloha, bjobim!</span>
+      </ion-col>
+      <ion-col col-4 text-right>
+        <ion-row float-end>
+          <span style="line-height: 36px;margin-right: 9pt;">{{karma}}</span>
+          <img src="../../assets/imgs/coin.png"/>
+        </ion-row>
       </ion-col>
     </ion-row>
 
-    <ion-card>
-      <ion-card-header>
-        ¿Quienes almuerzan hoy?
+    <ion-card style="border-radius: 12pt 12pt 0 0;">
+      <ion-card-header style="font-size: 16pt; font-weight: 600; height: 40pt;">
+        Almuerzan hoy ({{lunchersAmount}})
       </ion-card-header>
-      <ion-list *ngFor="let luncher of lunchers">
-        <h5 ion-item>{{luncher}}</h5>
+      <ion-list *ngFor="let luncher of lunchers; let i = index">
+        <ion-item style="padding: 7pt;" *ngIf='i%2==0'>
+          <ion-avatar item-start style='margin-left: 5pt;'>
+            <img src="../../assets/imgs/coin.png">
+          </ion-avatar>
+          <h2 text-capitalize style="font-size: 16pt;">{{luncher}}</h2>
+        </ion-item>
+        <ion-item style="padding: 7pt;" *ngIf='i%2!=0' class='stripped'>
+          <ion-avatar item-start style='margin-left: 5pt;'>
+            <img src="../../assets/imgs/coin.png">
+          </ion-avatar>
+          <h2 text-capitalize style="font-size: 16pt;">{{luncher}}</h2>
+        </ion-item>
       </ion-list>
     </ion-card>
 
