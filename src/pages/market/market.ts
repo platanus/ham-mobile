@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, ToastController } from 'ionic-angular';
 import { Storage } from '@capacitor/core';
+import { HamProvider } from '../../providers/ham/ham';
 
 @Component({
   selector: 'page-market',
@@ -9,10 +10,28 @@ import { Storage } from '@capacitor/core';
 export class MarketPage {
   private karma: string;
 
-  constructor(public navCtrl: NavController) {
-    Storage.get({key: 'karma'}).then((resp) => {
-      this.karma = resp.value;
+  constructor(public navCtrl: NavController, public hamProvider: HamProvider, private toastCtrl: ToastController) {
+    Storage.get({key: 'hamcode'}).then((resp) => {
+      const hamcode = resp.value;
+      this.updateKarma(hamcode);
+    })
+  }
+
+  updateKarma(hamcode) {
+    this.hamProvider.getKarma(hamcode)
+    .then(reponse => {
+      this.karma = reponse.karma;
+      this.showToast(reponse);
     });
+  }
+
+  showToast(message) {
+    let toast = this.toastCtrl.create({
+      message: message,
+      duration: 2000,
+      position: 'bottom'
+    });
+    toast.present();
   }
 
   goBack() {
@@ -20,11 +39,11 @@ export class MarketPage {
   }
 
   private sell() {
-    undefined;
+    console.log('SELL');
   }
 
   private buy() {
-    undefined;
+    console.log('BUY');
   }
 }
 

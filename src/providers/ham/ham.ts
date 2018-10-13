@@ -16,9 +16,10 @@ export class HamProvider {
       'X-AUTH': hamcode
     }
     return new Promise(resolve => {
+      console.log('PROVIDER');
       this.http.get(this.hamURL + '/karma', {}, headers).then(
         response => {
-          resolve(JSON.parse(response.data).karma);
+          resolve(JSON.parse(response.data));
         }, err => {
           console.log(err);
         });
