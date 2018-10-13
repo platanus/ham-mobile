@@ -1,11 +1,27 @@
-import { HttpClient } from '@angular/common/http';
+import { HTTP } from '@ionic-native/http';
 import { Injectable } from '@angular/core';
 
 @Injectable()
 export class HamProvider {
+  private hamURL = 'http://pl-ham.herokuapp.com'
 
-  constructor(public http: HttpClient) {
+  constructor(private http: HTTP) {
     console.log('Hello HamProvider Provider');
   }
 
+  getKarma(hamcode){
+    if(!hamcode) return
+    const headers = {
+      'Content-Type':  'application/json',
+      'X-AUTH': hamcode
+    }
+    return new Promise(resolve => {
+      this.http.get(this.hamURL + '/karma', {}, headers).then(
+        response => {
+          resolve(JSON.parse(response.data).karma);
+        }, err => {
+          console.log(err);
+        });
+    });
+  }
 }
