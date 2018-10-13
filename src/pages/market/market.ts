@@ -21,7 +21,6 @@ export class MarketPage {
     this.hamProvider.getKarma(hamcode)
     .then(reponse => {
       this.karma = reponse.karma;
-      this.showToast(reponse);
     });
   }
 
@@ -39,11 +38,11 @@ export class MarketPage {
   }
 
   private sell() {
-    console.log('SELL');
+    this.showToast('Limit order posted')
   }
 
   private buy() {
-    console.log('BUY');
+    console.log('Market order posted');
   }
 }
 

@@ -25,6 +25,7 @@ export class HomePage {
       this.updateKarma(hamcode);
       this.getWinningLunchers(hamcode);
     })
+    // this.navCtrl.push(MarketPage);
 
   }
 

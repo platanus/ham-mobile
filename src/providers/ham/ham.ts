@@ -9,15 +9,30 @@ export class HamProvider {
     console.log('Hello HamProvider Provider');
   }
 
-  getKarma(hamcode){
+  public getKarma(hamcode){
     if(!hamcode) return
     const headers = {
       'Content-Type':  'application/json',
       'X-AUTH': hamcode
     }
     return new Promise(resolve => {
-      console.log('PROVIDER');
       this.http.get(this.hamURL + '/karma', {}, headers).then(
+        response => {
+          resolve(JSON.parse(response.data));
+        }, err => {
+          console.log(err);
+        });
+    });
+  }
+
+  public placeLimitOrder(hamcode){
+    if(!hamcode) return
+    const headers = {
+      'Content-Type':  'application/json',
+      'X-AUTH': hamcode
+    }
+    return new Promise(resolve => {
+      this.http.post(this.hamURL + '/market/limit_orders', {}, headers).then(
         response => {
           resolve(JSON.parse(response.data));
         }, err => {
