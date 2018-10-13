@@ -14,6 +14,7 @@ import { HTTP } from '@ionic-native/http';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { HamProvider } from '../providers/ham/ham';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     StatusBar,
     SplashScreen,
     HTTP,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    HamProvider
   ]
 })
 export class AppModule {}
