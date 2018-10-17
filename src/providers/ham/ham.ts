@@ -53,5 +53,15 @@ export class HamProvider {
       .catch(err => console.log(err));
   }
 
+  public placeMarketOrder(hamcode){
+    if(!hamcode) return
+    const headers = {
+      'Content-Type':  'application/json',
+      'X-AUTH': hamcode
+    }
+    return this.http.post(this.hamURL + '/market/market_orders', {}, headers)
+      .then(response => JSON.parse(response.data))
+      .catch(err => console.log(err));
+  }
 
 }
