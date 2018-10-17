@@ -15,14 +15,20 @@ export class HamProvider {
       'Content-Type':  'application/json',
       'X-AUTH': hamcode
     }
-    return new Promise(resolve => {
-      this.http.get(this.hamURL + '/karma', {}, headers).then(
-        response => {
-          resolve(JSON.parse(response.data));
-        }, err => {
-          console.log(err);
-        });
-    });
+    return this.http.get(this.hamURL + '/karma', {}, headers)
+    .then(response => JSON.parse(response.data))
+    .catch(err => console.log(err));
+  }
+
+  public getWinningLunchers(hamcode){
+    if(!hamcode) return
+    const headers = {
+      'Content-Type':  'application/json',
+      'X-AUTH': hamcode
+    }
+    return this.http.get(this.hamURL + '/winning_lunchers', {}, headers)
+      .then(response => JSON.parse(response.data))
+      .catch(err => console.log(err));
   }
 
   public getLimitOrders(hamcode){
@@ -31,14 +37,9 @@ export class HamProvider {
       'Content-Type':  'application/json',
       'X-AUTH': hamcode
     }
-    return new Promise(resolve => {
-      this.http.get(this.hamURL + '/market/limit_orders', {}, headers).then(
-        response => {
-          resolve(JSON.parse(response.data));
-        }, err => {
-          console.log(err);
-        });
-    });
+    return this.http.get(this.hamURL + '/market/limit_orders', {}, headers)
+      .then(response => JSON.parse(response.data))
+      .catch(err => console.log(err));
   }
 
   public placeLimitOrder(hamcode){
@@ -47,13 +48,10 @@ export class HamProvider {
       'Content-Type':  'application/json',
       'X-AUTH': hamcode
     }
-    return new Promise(resolve => {
-      this.http.post(this.hamURL + '/market/limit_orders', {}, headers).then(
-        response => {
-          resolve(JSON.parse(response.data));
-        }, err => {
-          console.log(err);
-        });
-    });
+    return this.http.post(this.hamURL + '/market/limit_orders', {}, headers)
+      .then(response => JSON.parse(response.data))
+      .catch(err => console.log(err));
   }
+
+
 }

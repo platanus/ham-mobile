@@ -9,18 +9,29 @@ import { HamProvider } from '../../providers/ham/ham';
 })
 export class MarketPage {
   private karma: string;
+  private lunchers: any;
+  private lunchersAmount: any;
 
   constructor(public navCtrl: NavController, public hamProvider: HamProvider, private toastCtrl: ToastController) {
     Storage.get({key: 'hamcode'}).then((resp) => {
       const hamcode = resp.value;
       this.updateKarma(hamcode);
+      // this.getWinningLunchers(hamcode);
+      this.showToast(this.karma);
     })
   }
 
   updateKarma(hamcode) {
     this.hamProvider.getKarma(hamcode)
-    .then(reponse => {
-      this.karma = reponse.karma;
+    .then(response => {
+      this.karma = response.karma;
+    });
+  }
+
+  getWinningLunchers(hamcode) {
+    this.hamProvider.getWinningLunchers(hamcode)
+    .then(response => {
+      this.lunchers = response.lunchers;
     });
   }
 
@@ -38,11 +49,11 @@ export class MarketPage {
   }
 
   private sell() {
-    this.showToast('Limit order posted')
+    this.showToast(this.karma)
   }
 
   private buy() {
-    console.log('Market order posted');
+    this.showToast(this.karma)
   }
 }
 
