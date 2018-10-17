@@ -9,29 +9,31 @@ import { HamProvider } from '../../providers/ham/ham';
 })
 export class MarketPage {
   private karma: string;
+  private hamcode: string;
   private lunchers: any;
   private lunchersAmount: any;
   private limit_orders: any;
   private limit_ordersAmount: any;
+  private status: boolean;
 
   constructor(public navCtrl: NavController, public hamProvider: HamProvider, private toastCtrl: ToastController) {
     Storage.get({key: 'hamcode'}).then((resp) => {
-      const hamcode = resp.value;
-      this.updateKarma(hamcode);
-      this.getWinningLunchers(hamcode);
-      this.getLimitOrders(hamcode);
+      this.hamcode = resp.value;
+      this.updateKarma(this.hamcode);
+      this.getWinningLunchers(this.hamcode);
+      this.getLimitOrders(this.hamcode);
       this.showToast(this.limit_orders)
     });
   }
 
-  updateKarma(hamcode) {
+  private updateKarma(hamcode) {
     this.hamProvider.getKarma(hamcode)
     .then(response => {
       this.karma = response.karma;
     });
   }
 
-  getWinningLunchers(hamcode) {
+  private getWinningLunchers(hamcode) {
     this.hamProvider.getWinningLunchers(hamcode)
     .then(response => {
       this.lunchers = response.winning_lunchers;
@@ -39,7 +41,7 @@ export class MarketPage {
     });
   }
 
-  getLimitOrders(hamcode) {
+  private getLimitOrders(hamcode) {
     this.hamProvider.getLimitOrders(hamcode)
     .then(response => {
       this.limit_orders = response.limit_orders;
@@ -47,7 +49,23 @@ export class MarketPage {
     });
   }
 
-  showToast(message) {
+  private placeLimitOrder() {
+    this.hamProvider.placeLimitOrder(this.hamcode)
+    .then(response => {
+      this.status = response;
+      this.showToast(this.status)
+    });
+  }
+
+  private placeMarketOrder(hamcode) {
+    this.hamProvider.placeMarketOrder(this.hamcode)
+    .then(response => {
+      this.status = response;
+      this.showToast(this.status)
+    });
+  }
+
+  private showToast(message) {
     let toast = this.toastCtrl.create({
       message: message,
       duration: 2000,
