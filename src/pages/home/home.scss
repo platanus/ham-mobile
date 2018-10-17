@@ -19,4 +19,53 @@
       background: repeating-linear-gradient(45deg, #f6fafc, #f6fafc 15px, #fff 15px, #fff 30px);
     }
   }
+
+  button{
+    height: 56pt;
+    -webkit-box-shadow: 0px 6px 0px #6043E6, 0px 3px 15px rgba(0,0,0,.4);
+    -moz-box-shadow: 0px 6px 0px #6043E6, 0px 3px 15px rgba(0,0,0,.4);
+    box-shadow: 0px 6px 0px #6043E6, 0px 3px 15px rgba(0,0,0,.4);
+    margin: auto;
+    font-size: 20px;
+    display: block;
+    background: #6949FF;
+    letter-spacing: 0.8px;
+    color: white;
+    padding: 1em 2em;
+    border: 0;
+    border-radius: 12px;
+    line-height: 24px;
+  }
+
+  .clicky {
+    /** Offset the Position **/
+    position: relative;
+    top: 0;
+    margin-top: 0;
+    margin-bottom: 10px;
+
+    /** 3D Block Effect **/
+    -webkit-box-shadow: 0px 6px 0px #6043E6, 0px 3px 15px rgba(0,0,0,.4);
+    -moz-box-shadow: 0px 6px 0px #6043E6, 0px 3px 15px rgba(0,0,0,.4);
+    box-shadow: 0px 6px 0px #6043E6, 0px 3px 15px rgba(0,0,0,.4);
+
+    &:active {
+      /** Remove 3D Block Effect on Click **/
+      box-shadow: none;
+      top: 10px;
+      background: #6949FF;
+      margin-bottom: 0;
+    }
+
+    &:hover {
+      opacity: 1;
+      background: #6949FF;
+    }
+
+    &:active,&:focus{
+      outline: 0;
+      background: #6949FF;
+    }
+  }
+
 }

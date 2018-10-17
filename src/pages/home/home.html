@@ -12,11 +12,11 @@
       </ion-col>
     </ion-row>
 
-    <ion-card style="border-radius: 12pt 12pt 0 0;">
-      <ion-card-header style="font-size: 16pt; font-weight: 600; height: 40pt;">
+    <ion-card style="border-radius: 12pt;border: 1pt solid #DCEBFD">
+      <ion-card-header style="font-size: 16pt; font-weight: 600; height: 40pt; border-bottom:3px solid #DCEBFD;">
         Almuerzan hoy ({{lunchersAmount}})
       </ion-card-header>
-      <ion-list *ngFor="let luncher of lunchers; let i = index">
+      <ion-list *ngFor="let luncher of lunchers; let i = index" no-lines>
         <ion-item style="padding: 7pt;" *ngIf='i%2==0'>
           <ion-avatar item-start style='margin-left: 5pt;'>
             <img src="../../assets/imgs/coin.png">
@@ -32,16 +32,10 @@
       </ion-list>
     </ion-card>
 
-    <ion-card>
-      <ion-card-header>
-        ¿Quieres almorzar mañana?
-      </ion-card-header>
-      <ion-card-content>
-        <button ion-button icon-start large block (click)="willLunch()">
-          <ion-icon name="pizza"></ion-icon>
-          Si!
-        </button>
-      </ion-card-content>
-    </ion-card>
+    <ion-row padding>
+      <button (click)="willLunch()" id="willLunchButton" class="clicky" #willLunchButton ion-button block style="font-size: 16pt; padding: 19pt 68pt;background-color: #6949FF;border-radius: 12pt;">
+        ¿Almuerzas mañana?
+      </button>
+    </ion-row>
   </ion-grid>
 </ion-content>

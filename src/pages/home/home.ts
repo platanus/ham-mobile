@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild, ElementRef } from '@angular/core';
 import { HTTP } from '@ionic-native/http';
 import { NavController, ToastController } from 'ionic-angular';
 import { Storage } from "@capacitor/core";
@@ -8,6 +8,8 @@ import { Storage } from "@capacitor/core";
   templateUrl: 'home.html'
 })
 export class HomePage {
+  @ViewChild('willLunchButton')
+  willLunchButton: ElementRef
   private karma: string
   private hamcode: string
   private lunchers: any
@@ -47,6 +49,7 @@ export class HomePage {
       }
     )
   }
+
 
   getWinningLunchers(hamcode){
     if(!hamcode) return
