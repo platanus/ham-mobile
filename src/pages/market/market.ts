@@ -16,7 +16,7 @@ export class MarketPage {
     Storage.get({key: 'hamcode'}).then((resp) => {
       const hamcode = resp.value;
       this.updateKarma(hamcode);
-      // this.getWinningLunchers(hamcode);
+      this.getWinningLunchers(hamcode);
       this.showToast(this.karma);
     })
   }
@@ -31,7 +31,9 @@ export class MarketPage {
   getWinningLunchers(hamcode) {
     this.hamProvider.getWinningLunchers(hamcode)
     .then(response => {
-      this.lunchers = response.lunchers;
+      this.lunchers = response.winning_lunchers;
+      this.lunchersAmount = this.lunchers.length;
+
     });
   }
 
@@ -49,7 +51,7 @@ export class MarketPage {
   }
 
   private sell() {
-    this.showToast(this.karma)
+    this.showToast(this.lunchers)
   }
 
   private buy() {
