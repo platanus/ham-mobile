@@ -11,14 +11,17 @@ export class MarketPage {
   private karma: string;
   private lunchers: any;
   private lunchersAmount: any;
+  private limit_orders: any;
+  private limit_ordersAmount: any;
 
   constructor(public navCtrl: NavController, public hamProvider: HamProvider, private toastCtrl: ToastController) {
     Storage.get({key: 'hamcode'}).then((resp) => {
       const hamcode = resp.value;
       this.updateKarma(hamcode);
       this.getWinningLunchers(hamcode);
-      this.showToast(this.karma);
-    })
+      this.getLimitOrders(hamcode);
+      this.showToast(this.limit_orders)
+    });
   }
 
   updateKarma(hamcode) {
@@ -33,7 +36,14 @@ export class MarketPage {
     .then(response => {
       this.lunchers = response.winning_lunchers;
       this.lunchersAmount = this.lunchers.length;
+    });
+  }
 
+  getLimitOrders(hamcode) {
+    this.hamProvider.getLimitOrders(hamcode)
+    .then(response => {
+      this.limit_orders = response.limit_orders;
+      this.limit_ordersAmount = this.limit_orders.length;
     });
   }
 
@@ -51,7 +61,7 @@ export class MarketPage {
   }
 
   private sell() {
-    this.showToast(this.lunchers)
+    this.showToast(this.limit_orders)
   }
 
   private buy() {
