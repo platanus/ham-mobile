@@ -52,7 +52,7 @@ export class MarketPage {
   private placeLimitOrder() {
     this.hamProvider.placeLimitOrder(this.hamcode)
     .then(response => {
-      this.status = response;
+      this.status = response.status;
       this.showToast(this.status)
     });
   }
@@ -60,7 +60,7 @@ export class MarketPage {
   private placeMarketOrder(hamcode) {
     this.hamProvider.placeMarketOrder(this.hamcode)
     .then(response => {
-      this.status = response;
+      this.status = response.status;
       this.showToast(this.status)
     });
   }
