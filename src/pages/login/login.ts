@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
 import { Storage } from "@capacitor/core";
 import { HTTP } from '@ionic-native/http';
+import { TabsPage } from '../tabs/tabs';
 
 /**
  * Generated class for the LoginPage page.
@@ -32,7 +33,7 @@ export class LoginPage {
     this.checkHamCode().then((result) => {
       const hamcode = result.value
       if(hamcode && parseInt(hamcode) >= 0){
-        this.navCtrl.push(HomePage);
+        this.navCtrl.push(TabsPage);
       }
     })
   }
@@ -78,7 +79,7 @@ export class LoginPage {
         response => {
           const karma = JSON.parse(response.data).karma
           this.storeInitialData(code, karma)
-          this.navCtrl.push(HomePage);
+          this.navCtrl.push(TabsPage);
         },
         err => {
           const errorMessage = JSON.parse(err.error).message
