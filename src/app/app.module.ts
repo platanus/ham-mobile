@@ -24,6 +24,10 @@ import * as fromLunch from '../store/lunch/lunch.reducer';
 import { LunchEffects } from '../store/lunch/lunch.effects';
 import { LunchService } from '../store/lunch/lunch.service';
 
+import * as fromMarket from '../store/market/market.reducer';
+import { MarketEffects } from '../store/market/market.effects';
+import { MarketService } from '../store/market/market.service';
+
 import * as fromOffline from '../store/ionic-offline-support/ionic-offline-support.reducer';
 import { IonicOfflineSupportEffects } from '../store/ionic-offline-support/ionic-offline-support.effects';
 import { IonicOfflineService } from '../store/ionic-offline-support/ionic-offline-support.service';
@@ -55,6 +59,7 @@ export const metaReducers: MetaReducer<any>[] = [storageSync];
         auth: fromAuth.reducer,
         karma: fromKarma.reducer,
         lunch: fromLunch.reducer,
+        market: fromMarket.reducer,
         offlineSupport: fromOffline.ionicOfflineSupportReducer,
       },
       {
@@ -65,6 +70,7 @@ export const metaReducers: MetaReducer<any>[] = [storageSync];
       AuthEffects,
       KarmaEffects,
       LunchEffects,
+      MarketEffects,
       IonicOfflineSupportEffects,
     ]),
   ],
@@ -87,6 +93,7 @@ export const metaReducers: MetaReducer<any>[] = [storageSync];
     AuthService,
     KarmaService,
     LunchService,
+    MarketService,
     IonicOfflineService,
   ],
 })
