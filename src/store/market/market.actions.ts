@@ -12,7 +12,6 @@ export const PLACE_MARKET_ORDER = '[Lunch] Place Market Order';
 export const PLACE_MARKET_ORDER_FAILURE = '[Lunch] Place Market Order Failure';
 export const PLACE_MARKET_ORDER_SUCCESS = '[Lunch] Place Market Order Success';
 
-
 export class GetLimitOrders implements Action {
   public readonly type = GET_LIMIT_ORDERS;
 }

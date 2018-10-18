@@ -41,4 +41,3 @@ export function reducer(state: State = initialState, action: karma.Actions): Sta
 
 export const getKarma = (state: State) => state.karma;
 export const getErrorMessage = (state: State) => state.errorMessage;
-;

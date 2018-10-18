@@ -10,7 +10,6 @@ export class MarketService {
       .get('http://pl-ham.herokuapp.com/market/limit_orders', {}, this.getHeaders(hamCode))
       .then(
         response => {
-          console.log(response.data);
           return JSON.parse(response.data).limit_orders;
         },
         err => {

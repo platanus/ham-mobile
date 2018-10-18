@@ -3,7 +3,7 @@ import * as auth from './auth.actions';
 
 export interface State {
   hamCode: string;
-  loggedIn: boolean,
+  loggedIn: boolean;
   _errorMessage: string;
 }
 

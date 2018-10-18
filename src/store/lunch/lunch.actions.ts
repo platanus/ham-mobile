@@ -12,7 +12,6 @@ export const SIGN_UP_FOR_LUNCH = '[Lunch] Sign Up For Lunch';
 export const SIGN_UP_FOR_LUNCH_FAILURE = '[Lunch] Sign Up For Lunch Failure';
 export const SIGN_UP_FOR_LUNCH_SUCCESS = '[Lunch] Sign Up For Lunch Success';
 
-
 export class GetWinners implements Action {
   public readonly type = GET_WINNERS;
 }
