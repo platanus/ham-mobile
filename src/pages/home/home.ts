@@ -2,7 +2,7 @@ import { Component, ViewChild, ElementRef } from '@angular/core';
 import { HTTP } from '@ionic-native/http';
 import { NavController, ToastController } from 'ionic-angular';
 import { Storage } from "@capacitor/core";
-// import { BuySellPage } from './../home';
+import { MarketPage } from '../market/market';
 
 @Component({
   selector: 'page-home',
@@ -83,7 +83,7 @@ export class HomePage {
   }
 
   navigateBuySell() {
-    this.navCtrl.push(BuySellPage);
+    this.navCtrl.push(MarketPage);
   }
 
   howManyWantToLunch(hamcode){

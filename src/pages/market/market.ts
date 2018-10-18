@@ -15,6 +15,10 @@ export class MarketPage {
     });
   }
 
+  goBack() {
+    this.navCtrl.pop()
+  }
+
   private sell() {
     undefined;
   }
