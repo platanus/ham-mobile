@@ -14,6 +14,7 @@ import { merge } from 'rxjs/operators/merge';
 import * as fromRoot from '../../store';
 import * as karma from '../../store/karma/karma.actions';
 import * as lunch from '../../store/lunch/lunch.actions';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'page-home',
@@ -24,7 +25,7 @@ export class HomePage {
   public winners$: Observable<string[]>;
   public hamcode: string;
   public lunchers: any;
-  private unsubscribe: Subject<void> = new Subject();
+  private subscriptions: {[key: string]: Subscription} = {};
   private waitingForResponse: boolean;
   constructor(
     public navCtrl: NavController,
@@ -39,9 +40,8 @@ export class HomePage {
     this.store.dispatch(new karma.GetKarma());
     this.store.dispatch(new lunch.GetWinners());
 
-    this.store
+    this.subscriptions.lunchers = this.store
       .select(fromRoot.getLunchers)
-      .pipe(takeUntil(this.unsubscribe))
       .subscribe(lunchers => {
         if (this.waitingForResponse) {
           const message: string = `Hmm.. Ya van ${
@@ -52,7 +52,7 @@ export class HomePage {
         }
       });
 
-    this.store
+    this.subscriptions.errors = this.store
       .select(fromRoot.getKarmaErrorMessage)
       .pipe(merge(this.store.select(fromRoot.getLunchErrorMessage)))
       .subscribe(errorMessage => this.showToast(errorMessage));
@@ -60,8 +60,7 @@ export class HomePage {
 
   public ionViewWillLeave() {
     // Unsubscribe from all managed subscriptions
-    this.unsubscribe.next();
-    this.unsubscribe.unsubscribe();
+    Object.keys(this.subscriptions).forEach((sub) => this.subscriptions[sub].unsubscribe());
   }
 
   public willLunch() {
