@@ -20,6 +20,10 @@ import * as fromKarma from '../store/karma/karma.reducer';
 import { KarmaEffects } from '../store/karma/karma.effects';
 import { KarmaService } from '../store/karma/karma.service';
 
+import * as fromLunch from '../store/lunch/lunch.reducer';
+import { LunchEffects } from '../store/lunch/lunch.effects';
+import { LunchService } from '../store/lunch/lunch.service';
+
 import { HTTP } from '@ionic-native/http';
 
 import { StatusBar } from '@ionic-native/status-bar';
@@ -42,10 +46,12 @@ import { HamProvider } from '../providers/ham/ham';
     StoreModule.forRoot({
       auth: fromAuth.reducer,
       karma: fromKarma.reducer,
+      lunch: fromLunch.reducer,
     }),
     EffectsModule.forRoot([
       AuthEffects,
       KarmaEffects,
+      LunchEffects,
     ]),
   ],
   bootstrap: [IonicApp],
@@ -66,6 +72,7 @@ import { HamProvider } from '../providers/ham/ham';
     HamProvider,
     AuthService,
     KarmaService,
+    LunchService,
   ],
 })
 export class AppModule {}
