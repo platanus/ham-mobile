@@ -12,22 +12,22 @@
       </ion-col>
     </ion-row>
 
-    <ion-card style="border-radius: 12pt;border: 1pt solid #DCEBFD">
+    <ion-card style="border-radius: 12pt;border: 1pt solid #DCEBFD" *ngIf="winners$ | async; let winners">
       <ion-card-header style="font-size: 16pt; font-weight: 600; height: 40pt; border-bottom:3px solid #DCEBFD;">
-        Almuerzan hoy ({{lunchersAmount}})
+        Almuerzan hoy ({{winners.length}})
       </ion-card-header>
-      <ion-list *ngFor="let luncher of lunchers; let i = index" no-lines>
+      <ion-list *ngFor="let winner of winners; let i = index" no-lines>
         <ion-item style="padding: 7pt;" *ngIf='i%2==0'>
           <ion-avatar item-start style='margin-left: 5pt;'>
             <img src="../../assets/imgs/coin.png">
           </ion-avatar>
-          <h2 text-capitalize style="font-size: 16pt;">{{luncher}}</h2>
+          <h2 text-capitalize style="font-size: 16pt;">{{winner}}</h2>
         </ion-item>
         <ion-item style="padding: 7pt;" *ngIf='i%2!=0' class='stripped'>
           <ion-avatar item-start style='margin-left: 5pt;'>
             <img src="../../assets/imgs/coin.png">
           </ion-avatar>
-          <h2 text-capitalize style="font-size: 16pt;">{{luncher}}</h2>
+          <h2 text-capitalize style="font-size: 16pt;">{{winner}}</h2>
         </ion-item>
       </ion-list>
     </ion-card>

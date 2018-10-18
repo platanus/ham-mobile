@@ -5,11 +5,11 @@ import { Storage } from '@capacitor/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { MarketPage } from '../market/market';
+import { Subject } from 'rxjs/Subject';
 
 import * as fromRoot from '../../store';
 import * as karma from '../../store/karma/karma.actions';
-import { takeUntil } from 'rxjs/operators';
-import { Subject } from 'rxjs/Subject';
+import * as lunch from '../../store/lunch/lunch.actions';
 
 @Component({
   selector: 'page-home',
@@ -17,6 +17,7 @@ import { Subject } from 'rxjs/Subject';
 })
 export class HomePage {
   public karma$: Observable<string>;
+  public winners$: Observable<string[]>;
   public hamcode: string;
   public lunchers: any;
   private unsubscribe: Subject<void> = new Subject();
@@ -27,20 +28,12 @@ export class HomePage {
     private store: Store<fromRoot.AppState>,
   ) {
     this.karma$ = this.store.select(fromRoot.getKarma);
+    this.winners$ = this.store.select(fromRoot.getLunchWinners);
   }
 
   public ionViewWillEnter() {
     this.store.dispatch(new karma.GetKarma());
-
-    this.store.select(fromRoot.getAuthHamCode)
-    .pipe(takeUntil(this.unsubscribe))
-    .subscribe((hamCode) => {
-      Storage.set({
-        key: 'hamcode',
-        value: hamCode,
-      });
-      this.getWinningLunchers(hamCode);
-    })
+    this.store.dispatch(new lunch.GetWinners());
   }
 
   public ionViewWillLeave() {
@@ -76,25 +69,6 @@ export class HomePage {
 
   public navigateBuySell() {
     this.navCtrl.push(MarketPage);
-  }
-
-  private getWinningLunchers(hamcode: string) {
-    if (!hamcode) { return; }
-    const headers = {
-      'Content-Type': 'application/json',
-      'X-AUTH': hamcode,
-    };
-
-    this.http.get('http://pl-ham.herokuapp.com/winning_lunchers', {}, headers).then(
-      response => {
-        const lunchers: string = JSON.parse(response.data).winning_lunchers;
-        this.lunchers = lunchers;
-      },
-      err => {
-        const errorMessage: string = JSON.parse(err.error).message;
-        this.showToast(errorMessage);
-      },
-    );
   }
 
   private showToast(message: string) {
