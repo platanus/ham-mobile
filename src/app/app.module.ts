@@ -46,7 +46,7 @@ import { HamProvider } from '../providers/ham/ham';
     EffectsModule.forRoot([
       AuthEffects,
       KarmaEffects,
-    ])
+    ]),
   ],
   bootstrap: [IonicApp],
   entryComponents: [
