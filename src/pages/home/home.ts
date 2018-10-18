@@ -9,6 +9,7 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { MarketPage } from '../market/market';
 import { Subject } from 'rxjs/Subject';
+import { merge } from 'rxjs/operators/merge';
 
 import * as fromRoot from '../../store';
 import * as karma from '../../store/karma/karma.actions';
@@ -50,6 +51,11 @@ export class HomePage {
           this.waitingForResponse = false;
         }
       });
+
+    this.store
+      .select(fromRoot.getKarmaErrorMessage)
+      .pipe(merge(this.store.select(fromRoot.getLunchErrorMessage)))
+      .subscribe(errorMessage => this.showToast(errorMessage));
   }
 
   public ionViewWillLeave() {

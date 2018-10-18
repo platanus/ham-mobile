@@ -24,8 +24,8 @@ export class MyApp {
       this.statusBar.hide();
       this.splashScreen.hide();
 
-      this.store.select(fromRoot.getAuthHamCode).subscribe((hamCode) => {
-        if (hamCode) {
+      this.store.select(fromRoot.getAuthLogInStatus).subscribe((loggedIn) => {
+        if (loggedIn) {
           this.rootPage = TabsPage;
         } else {
           this.rootPage = LoginPage;

@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { HTTP } from '@ionic-native/http';
-import { HttpHeaders } from '@angular/common/http';
 
 @Injectable()
 export class AuthService {

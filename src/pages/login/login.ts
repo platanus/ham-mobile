@@ -6,7 +6,7 @@ import { Store } from '@ngrx/store';
 
 import * as auth from '../../store/auth/auth.actions';
 import * as fromRoot from '../../store';
-import { takeUntil } from 'rxjs/operators';
+import { takeUntil } from 'rxjs/operators/takeUntil';
 import { Subject } from 'rxjs/Subject';
 
 @IonicPage()
