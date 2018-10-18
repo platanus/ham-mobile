@@ -33,6 +33,20 @@ export class LunchService {
       );
   }
 
+  public signUpForLunch(hamCode: string) {
+    return this.http
+      .post('http://pl-ham.herokuapp.com/current_lunchers', {}, this.getHeaders(hamCode))
+      .then(
+        _ => {
+          return true;
+        },
+        err => {
+          const errorMessage: string = JSON.parse(err.error).message;
+          throw errorMessage;
+        },
+      );
+  }
+
   private getHeaders(hamCode: string) {
     return {
       'Content-Type': 'application/json',

@@ -53,6 +53,18 @@ export function reducer(state: State = initialState, action: lunch.Actions): Sta
         errorMessage: action.payload,
       };
     }
+    case lunch.SIGN_UP_FOR_LUNCH: {
+      return {
+        ...state,
+        errorMessage: null,
+      };
+    }
+    case lunch.SIGN_UP_FOR_LUNCH_FAILURE: {
+      return {
+        ...state,
+        errorMessage: action.payload,
+      };
+    }
     default: {
       return state;
     }

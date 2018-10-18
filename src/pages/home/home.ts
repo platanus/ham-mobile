@@ -1,7 +1,10 @@
+<<<<<<< HEAD
 import { Component, ViewChild, ElementRef, OnInit } from '@angular/core';
 import { HTTP } from '@ionic-native/http';
+=======
+import { Component } from '@angular/core';
+>>>>>>> feat(lunch): use store for lunch registration
 import { NavController, ToastController, Toast } from 'ionic-angular';
-import { Storage } from '@capacitor/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { MarketPage } from '../market/market';
@@ -21,9 +24,9 @@ export class HomePage {
   public hamcode: string;
   public lunchers: any;
   private unsubscribe: Subject<void> = new Subject();
+  private waitingForResponse: boolean;
   constructor(
     public navCtrl: NavController,
-    private http: HTTP,
     private toastCtrl: ToastController,
     private store: Store<fromRoot.AppState>,
   ) {
@@ -34,6 +37,19 @@ export class HomePage {
   public ionViewWillEnter() {
     this.store.dispatch(new karma.GetKarma());
     this.store.dispatch(new lunch.GetWinners());
+
+    this.store
+      .select(fromRoot.getLunchers)
+      .pipe(takeUntil(this.unsubscribe))
+      .subscribe(lunchers => {
+        if (this.waitingForResponse) {
+          const message: string = `Hmm.. Ya van ${
+            lunchers.length
+          } que les gustaría almorzar aquí hoy.`;
+          this.showToast(message);
+          this.waitingForResponse = false;
+        }
+      });
   }
 
   public ionViewWillLeave() {
@@ -43,28 +59,8 @@ export class HomePage {
   }
 
   public willLunch() {
-    Storage.get({ key: 'hamcode' }).then(resp => {
-      const hamcode = resp.value;
-      const headers = {
-        'Content-Type': 'application/json',
-        'X-AUTH': hamcode,
-      };
-
-      this.http.post('http://pl-ham.herokuapp.com/current_lunchers', {}, headers).then(
-        response => {
-          const success = JSON.parse(response.data).success;
-          if (success) {
-            this.howManyWantToLunch(hamcode);
-          } else {
-            this.showToast('Error :( ');
-          }
-        },
-        err => {
-          const errorMessage = JSON.parse(err.error).message;
-          this.showToast(errorMessage);
-        },
-      );
-    });
+    this.store.dispatch(new lunch.SignUpForLunch());
+    this.waitingForResponse = true;
   }
 
   public navigateBuySell() {
@@ -78,23 +74,5 @@ export class HomePage {
       position: 'bottom',
     });
     toast.present();
-  }
-
-  private howManyWantToLunch(hamcode: string) {
-    const headers: { [key: string]: string } = {
-      'Content-Type': 'application/json',
-      'X-AUTH': hamcode,
-    };
-
-    this.http.get('http://pl-ham.herokuapp.com/current_lunchers', {}, headers).then(
-      response => {
-        const wantToLunch: string = JSON.parse(response.data).current_lunchers.length;
-        this.showToast('Hmm.. Ya van ' + wantToLunch + ' que les gustaría almorzar aquí hoy.');
-      },
-      err => {
-        const errorMessage: string = JSON.parse(err.error).message;
-        this.showToast(errorMessage);
-      },
-    );
   }
 }

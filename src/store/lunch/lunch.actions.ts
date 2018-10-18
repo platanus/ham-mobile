@@ -5,6 +5,13 @@ import { Action } from '@ngrx/store';
 export const GET_WINNERS = '[Lunch] Get Winners';
 export const GET_WINNERS_FAILURE = '[Lunch] Get Winners Success';
 export const GET_WINNERS_SUCCESS = '[Lunch] Get Winners Failure';
+export const GET_CURRENT_LUNCHERS = '[Lunch] Get Current Lunchers';
+export const GET_CURRENT_LUNCHERS_FAILURE = '[Lunch] Get Current Lunchers Success';
+export const GET_CURRENT_LUNCHERS_SUCCESS = '[Lunch] Get Current Lunchers Failure';
+export const SIGN_UP_FOR_LUNCH = '[Lunch] Sign Up For Lunch';
+export const SIGN_UP_FOR_LUNCH_FAILURE = '[Lunch] Sign Up For Lunch Success';
+export const SIGN_UP_FOR_LUNCH_SUCCESS = '[Lunch] Sign Up For Lunch Failure';
+
 
 export class GetWinners implements Action {
   public readonly type = GET_WINNERS;
@@ -22,10 +29,6 @@ export class GetWinnersFailure implements Action {
   constructor(public payload: string) {}
 }
 
-export const GET_CURRENT_LUNCHERS = '[Lunch] Get Current Lunchers';
-export const GET_CURRENT_LUNCHERS_FAILURE = '[Lunch] Get Current Lunchers Success';
-export const GET_CURRENT_LUNCHERS_SUCCESS = '[Lunch] Get Current Lunchers Failure';
-
 export class GetCurrentLunchers implements Action {
   public readonly type = GET_CURRENT_LUNCHERS;
 }
@@ -42,10 +45,27 @@ export class GetCurrentLunchersFailure implements Action {
   constructor(public payload: string) {}
 }
 
+export class SignUpForLunch implements Action {
+  public readonly type = SIGN_UP_FOR_LUNCH;
+}
+
+export class SignUpForLunchSuccess implements Action {
+  public readonly type = SIGN_UP_FOR_LUNCH_SUCCESS;
+}
+
+export class SignUpForLunchFailure implements Action {
+  public readonly type = SIGN_UP_FOR_LUNCH_FAILURE;
+
+  constructor(public payload: string) {}
+}
+
 export type Actions =
   | GetWinners
   | GetWinnersSuccess
   | GetWinnersFailure
   | GetCurrentLunchers
   | GetCurrentLunchersSuccess
-  | GetCurrentLunchersFailure;
+  | GetCurrentLunchersFailure
+  | SignUpForLunch
+  | SignUpForLunchSuccess
+  | SignUpForLunchFailure;
