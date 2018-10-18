@@ -33,7 +33,7 @@ export class LoginPage {
     this.checkHamCode().then((result) => {
       const hamcode = result.value
       if(hamcode && parseInt(hamcode) >= 0){
-        this.navCtrl.push(TabsPage);
+        this.navCtrl.push(HomePage);
       }
     })
   }

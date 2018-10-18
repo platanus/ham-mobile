@@ -50,7 +50,6 @@ export class HamProvider {
     }
     return this.http.post(this.hamURL + '/market/limit_orders', {}, headers)
       .then(response => JSON.parse(response.data))
-      .catch(err => console.log(err));
   }
 
   public placeMarketOrder(hamcode){
@@ -61,7 +60,6 @@ export class HamProvider {
     }
     return this.http.post(this.hamURL + '/market/market_orders', {}, headers)
       .then(response => JSON.parse(response.data))
-      .catch(err => console.log(err));
   }
 
 }

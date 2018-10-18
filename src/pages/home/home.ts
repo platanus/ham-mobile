@@ -2,10 +2,7 @@ import { Component, ViewChild, ElementRef } from '@angular/core';
 import { HTTP } from '@ionic-native/http';
 import { NavController, ToastController } from 'ionic-angular';
 import { Storage } from "@capacitor/core";
-<<<<<<< HEAD
 import { MarketPage } from '../market/market';
-=======
->>>>>>> 139a6c0... feat(ham-provider): create ham provider
 
 @Component({
   selector: 'page-home',

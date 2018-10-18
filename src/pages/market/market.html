@@ -17,10 +17,10 @@
       <ion-row style="padding: 0px;">
         <ion-col text-center style="padding: 0px;">
           <img src="../../assets/imgs/pizza.png" style="margin: 20px; height: 60px;" alt=""/>
-          <span style="display: block; font-size: 20pt">Almuerzos en venta: 2</span>
+          <span style="display: block; font-size: 20pt">Almuerzos en venta: {{limit_ordersAmount}}</span>
           <div style="display: flex; padding: 0px;margin-top: 40px;">
-            <button ion-button block style="background-color: #6043E6;margin: 0px; height: 70px;border-radius: 0px!important;border-bottom-left-radius: 10px!important;font-size: 14pt;">Comprar</button>
-            <button ion-button block style="background-color: #E6B515;margin: 0px; height: 70px;border-radius: 0px!important;border-bottom-right-radius: 10px!important;font-size: 14pt; color: black;">Vender</button>
+            <button ion-button block ion-button (click)="placeMarketOrder()" style="background-color: #6043E6;margin: 0px; height: 70px;border-radius: 0px!important;border-bottom-left-radius: 10px!important;font-size: 14pt;">Comprar</button>
+            <button ion-button block (click)="placeLimitOrder()" style="background-color: #E6B515;margin: 0px; height: 70px;border-radius: 0px!important;border-bottom-right-radius: 10px!important;font-size: 14pt; color: black;">Vender</button>
           </div>
         </ion-col>
       </ion-row>

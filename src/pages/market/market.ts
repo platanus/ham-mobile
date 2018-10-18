@@ -54,6 +54,8 @@ export class MarketPage {
     .then(response => {
       this.status = response.status;
       this.showToast(this.status)
+    }).catch(err => {
+      this.showToast(JSON.parse(err.error).message)
     });
   }
 
@@ -62,6 +64,8 @@ export class MarketPage {
     .then(response => {
       this.status = response.status;
       this.showToast(this.status)
+    }).catch(err => {
+      this.showToast(JSON.parse(err.error).message)
     });
   }
 
