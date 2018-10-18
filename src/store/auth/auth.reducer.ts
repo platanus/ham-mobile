@@ -4,13 +4,13 @@ import * as auth from './auth.actions';
 export interface State {
   hamCode: string;
   loggedIn: boolean,
-  errorMessage: string;
+  _errorMessage: string;
 }
 
 export const initialState: State = {
   hamCode: null,
   loggedIn: false,
-  errorMessage: null,
+  _errorMessage: null,
 };
 
 export function reducer(state: State = initialState, action: auth.Actions): State {
@@ -18,7 +18,7 @@ export function reducer(state: State = initialState, action: auth.Actions): Stat
     case auth.LOGIN: {
       return {
         hamCode: action.payload,
-        errorMessage: null,
+        _errorMessage: null,
         loggedIn: false,
       };
     }
@@ -27,14 +27,14 @@ export function reducer(state: State = initialState, action: auth.Actions): Stat
         ...state,
         hamCode: null,
         loggedIn: false,
-        errorMessage: action.payload,
+        _errorMessage: action.payload,
       };
     }
     case auth.LOGIN_SUCCESS: {
       return {
         ...state,
         loggedIn: true,
-        errorMessage: null,
+        _errorMessage: null,
       };
     }
     default: {
@@ -45,4 +45,4 @@ export function reducer(state: State = initialState, action: auth.Actions): Stat
 
 export const getHamCode = (state: State) => state.hamCode;
 export const getLogInStatus = (state: State) => state.loggedIn;
-export const getErrorMessage = (state: State) => state.errorMessage;
+export const getErrorMessage = (state: State) => state._errorMessage;

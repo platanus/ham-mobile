@@ -3,10 +3,12 @@ import { Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { Store } from '@ngrx/store';
+import 'rxjs/add/observable/combineLatest';
 
 import { LoginPage } from '../pages/login/login';
 import * as fromRoot from '../store';
 import { TabsPage } from '../pages/tabs/tabs';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   templateUrl: 'app.html',
@@ -24,8 +26,11 @@ export class MyApp {
       this.statusBar.hide();
       this.splashScreen.hide();
 
-      this.store.select(fromRoot.getAuthLogInStatus).subscribe((loggedIn) => {
-        if (loggedIn) {
+      const initStatus$: Store<boolean> = this.store.select(fromRoot.getInitStatus);
+      const loginStatus$: Store<boolean> = this.store.select(fromRoot.getAuthLogInStatus);
+
+      Observable.combineLatest(initStatus$, loginStatus$).subscribe(([initialized, loggedIn]) => {
+        if (initialized && loggedIn) {
           this.rootPage = TabsPage;
         } else {
           this.rootPage = LoginPage;

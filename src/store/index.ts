@@ -5,12 +5,20 @@ import { createSelector } from '@ngrx/store';
 import * as fromAuth from './auth/auth.reducer';
 import * as fromKarma from './karma/karma.reducer';
 import * as fromLunch from './lunch/lunch.reducer';
+import * as fromOffline from './ionic-offline-support/ionic-offline-support.reducer';
 
 export interface AppState {
   auth: fromAuth.State;
   karma: fromKarma.State;
   lunch: fromLunch.State;
+  offlineSupport: fromOffline.State;
 }
+
+export const STATES_TO_BE_SAVED: string[] = ['auth'];
+
+// Offline
+export const selectOfflineSupportState = (state: AppState) => state.offlineSupport;
+export const getInitStatus = createSelector(selectOfflineSupportState, fromOffline.getInitStatus);
 
 // Auth
 export const selectAuthState = (state: AppState) => state.auth;
