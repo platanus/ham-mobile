@@ -16,6 +16,10 @@ import * as fromAuth from '../store/auth/auth.reducer';
 import { AuthEffects } from '../store/auth/auth.effects';
 import { AuthService } from '../store/auth/auth.service';
 
+import * as fromKarma from '../store/karma/karma.reducer';
+import { KarmaEffects } from '../store/karma/karma.effects';
+import { KarmaService } from '../store/karma/karma.service';
+
 import { HTTP } from '@ionic-native/http';
 
 import { StatusBar } from '@ionic-native/status-bar';
@@ -37,9 +41,11 @@ import { HamProvider } from '../providers/ham/ham';
     IonicModule.forRoot(MyApp),
     StoreModule.forRoot({
       auth: fromAuth.reducer,
+      karma: fromKarma.reducer,
     }),
     EffectsModule.forRoot([
       AuthEffects,
+      KarmaEffects,
     ])
   ],
   bootstrap: [IonicApp],
@@ -58,6 +64,8 @@ import { HamProvider } from '../providers/ham/ham';
     HTTP,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     HamProvider,
+    AuthService,
+    KarmaService,
   ],
 })
 export class AppModule {}
