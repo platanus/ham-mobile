@@ -19,11 +19,19 @@ export class MarketPage {
   constructor(public navCtrl: NavController, public hamProvider: HamProvider, private toastCtrl: ToastController) {
     Storage.get({key: 'hamcode'}).then((resp) => {
       this.hamcode = resp.value;
-      this.updateKarma(this.hamcode);
-      this.getWinningLunchers(this.hamcode);
-      this.getLimitOrders(this.hamcode);
-      this.showToast(this.limit_orders)
+      this.refresh();
     });
+  }
+
+  private ngOnInit() {
+    this.refresh();
+  }
+
+  private refresh() {
+    this.updateKarma(this.hamcode);
+    this.getWinningLunchers(this.hamcode);
+    this.getLimitOrders(this.hamcode);
+    this.showToast(this.limit_orders)
   }
 
   private updateKarma(hamcode) {
