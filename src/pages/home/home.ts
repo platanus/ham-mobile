@@ -21,10 +21,15 @@ export class HomePage {
       this.karma = resp.value;
     })
     Storage.get({key: 'hamcode'}).then((resp) => {
-      const hamcode = resp.value
-      this.updateKarma(hamcode);
-      this.getWinningLunchers(hamcode);
+      this.hamcode = resp.value
+      this.updateKarma(this.hamcode);
+      this.getWinningLunchers(this.hamcode);
     })
+  }
+
+  private ngOnInit() {
+    this.updateKarma(this.hamcode);
+    this.getWinningLunchers(this.hamcode);
   }
 
   updateKarma(hamcode){
