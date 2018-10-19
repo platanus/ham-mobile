@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit  } from '@angular/core';
 import { NavController, ToastController } from 'ionic-angular';
 import { Storage } from '@capacitor/core';
 import { HamProvider } from '../../providers/ham/ham';
@@ -7,7 +7,7 @@ import { HamProvider } from '../../providers/ham/ham';
   selector: 'page-market',
   templateUrl: 'market.html',
 })
-export class MarketPage {
+export class MarketPage implements OnInit {
   private karma: string;
   private hamcode: string;
   private lunchers: any;
@@ -23,7 +23,11 @@ export class MarketPage {
     });
   }
 
-  private ngOnInit() {
+   ngOnInit() {
+    this.refresh();
+  }
+
+  ionViewWillEnter() {
     this.refresh();
   }
 
@@ -31,7 +35,6 @@ export class MarketPage {
     this.updateKarma(this.hamcode);
     this.getWinningLunchers(this.hamcode);
     this.getLimitOrders(this.hamcode);
-    this.showToast(this.limit_orders)
   }
 
   private updateKarma(hamcode) {
@@ -61,6 +64,7 @@ export class MarketPage {
     this.hamProvider.placeLimitOrder(this.hamcode)
     .then(response => {
       this.status = response.status;
+      this.refresh();
       this.showToast(this.status)
     }).catch(err => {
       this.showToast(JSON.parse(err.error).message)
@@ -71,6 +75,7 @@ export class MarketPage {
     this.hamProvider.placeMarketOrder(this.hamcode)
     .then(response => {
       this.status = response.status;
+      this.refresh();
       this.showToast(this.status)
     }).catch(err => {
       this.showToast(JSON.parse(err.error).message)
@@ -88,14 +93,6 @@ export class MarketPage {
 
   goBack() {
     this.navCtrl.pop()
-  }
-
-  private sell() {
-    this.showToast(this.limit_orders)
-  }
-
-  private buy() {
-    this.showToast(this.karma)
   }
 }
 

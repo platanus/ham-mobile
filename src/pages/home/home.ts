@@ -1,4 +1,4 @@
-import { Component, ViewChild, ElementRef } from '@angular/core';
+import { Component, ViewChild, ElementRef, OnInit } from '@angular/core';
 import { HTTP } from '@ionic-native/http';
 import { NavController, ToastController } from 'ionic-angular';
 import { Storage } from "@capacitor/core";
@@ -8,7 +8,7 @@ import { MarketPage } from '../market/market';
   selector: 'page-home',
   templateUrl: 'home.html'
 })
-export class HomePage {
+export class HomePage implements OnInit {
   @ViewChild('willLunchButton')
   willLunchButton: ElementRef
   private karma: string
@@ -27,11 +27,16 @@ export class HomePage {
     })
   }
 
-  private ngOnInit() {
+  ngOnInit() {
     this.updateKarma(this.hamcode);
     this.getWinningLunchers(this.hamcode);
   }
 
+  ionViewWillEnter() {
+    this.updateKarma(this.hamcode);
+    this.getWinningLunchers(this.hamcode);
+  }
+  
   updateKarma(hamcode){
     if(!hamcode) return
     const headers = {
@@ -54,7 +59,6 @@ export class HomePage {
       }
     )
   }
-
 
   getWinningLunchers(hamcode){
     if(!hamcode) return
