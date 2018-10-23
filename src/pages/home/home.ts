@@ -1,9 +1,4 @@
-<<<<<<< HEAD
-import { Component, ViewChild, ElementRef, OnInit } from '@angular/core';
-import { HTTP } from '@ionic-native/http';
-=======
 import { Component } from '@angular/core';
->>>>>>> feat(lunch): use store for lunch registration
 import { NavController, ToastController, Toast } from 'ionic-angular';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
