@@ -7,7 +7,7 @@ import 'rxjs/add/observable/combineLatest';
 
 import { LoginPage } from '../pages/login/login';
 import * as fromRoot from '../store';
-import { TabsPage } from '../pages/tabs/tabs';
+import { HomePage } from '../pages/home/home';
 import { Observable } from 'rxjs/Observable';
 
 @Component({
@@ -31,7 +31,7 @@ export class MyApp {
 
       Observable.combineLatest(initStatus$, loginStatus$).subscribe(([initialized, loggedIn]) => {
         if (initialized && loggedIn) {
-          this.rootPage = TabsPage;
+          this.rootPage = HomePage;
         } else {
           this.rootPage = LoginPage;
         }

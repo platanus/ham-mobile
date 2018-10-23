@@ -10,7 +10,6 @@ import { ContactPage } from '../pages/contact/contact';
 import { HomePage } from '../pages/home/home';
 import { LoginPage } from '../pages/login/login';
 import { MarketPage } from '../pages/market/market';
-import { TabsPage } from '../pages/tabs/tabs';
 
 import * as fromAuth from '../store/auth/auth.reducer';
 import { AuthEffects } from '../store/auth/auth.effects';
@@ -46,7 +45,6 @@ export const metaReducers: MetaReducer<any>[] = [storageSync];
     AboutPage,
     ContactPage,
     HomePage,
-    TabsPage,
     LoginPage,
     MarketPage,
   ],
@@ -79,7 +77,6 @@ export const metaReducers: MetaReducer<any>[] = [storageSync];
     AboutPage,
     ContactPage,
     HomePage,
-    TabsPage,
     LoginPage,
     MarketPage,
   ],
