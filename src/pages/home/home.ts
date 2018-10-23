@@ -72,6 +72,7 @@ export class HomePage {
       message: message,
       duration: 2000,
       position: 'bottom',
+      showCloseButton: true,
     });
     toast.present();
   }

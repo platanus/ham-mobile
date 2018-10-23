@@ -60,6 +60,7 @@ export class LoginPage {
       message: message,
       duration: 2000,
       position: 'bottom',
+      showCloseButton: true,
     });
     toast.present();
   }

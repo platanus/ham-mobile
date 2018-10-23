@@ -57,6 +57,7 @@ export class MarketPage {
       message: message,
       duration: 2000,
       position: 'bottom',
+      showCloseButton: true,
     });
     toast.present();
   }
