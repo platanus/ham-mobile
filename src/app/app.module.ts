@@ -37,7 +37,6 @@ import { HTTP } from '@ionic-native/http';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-import { HamProvider } from '../providers/ham/ham';
 
 export const metaReducers: MetaReducer<any>[] = [storageSync];
 
@@ -89,7 +88,6 @@ export const metaReducers: MetaReducer<any>[] = [storageSync];
     SplashScreen,
     HTTP,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    HamProvider,
     AuthService,
     KarmaService,
     LunchService,

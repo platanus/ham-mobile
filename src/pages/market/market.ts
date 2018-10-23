@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { NavController, ToastController, Toast } from 'ionic-angular';
 import { Storage } from '@capacitor/core';
 
-import { HamProvider } from '../../providers/ham/ham';
 import * as karma from '../../store/karma/karma.actions';
 import * as market from '../../store/market/market.actions';
 import { Store } from '@ngrx/store';
@@ -21,7 +20,6 @@ export class MarketPage {
 
   constructor(
     public navCtrl: NavController,
-    public hamProvider: HamProvider,
     private toastCtrl: ToastController,
     private store: Store<fromRoot.AppState>,
   ) {
