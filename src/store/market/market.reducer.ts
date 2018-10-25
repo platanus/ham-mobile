@@ -1,6 +1,4 @@
 /* tslint:disable typedef */
-import { createSelector } from '@ngrx/store';
-
 import * as market from './market.actions';
 
 export interface State {
@@ -22,7 +20,6 @@ export function reducer(state: State = initialState, action: market.Actions): St
     case market.GET_LIMIT_ORDERS: {
       return {
         ...state,
-        errorMessage: null,
       };
     }
     case market.GET_LIMIT_ORDERS_SUCCESS: {

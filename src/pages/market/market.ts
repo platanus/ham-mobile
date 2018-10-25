@@ -32,7 +32,11 @@ export class MarketPage {
 
     this.subscriptions.errors = this.store
       .select(fromRoot.getMarketErrorMessage)
-      .subscribe(errorMessage => this.showToast(errorMessage));
+      .subscribe(errorMessage => {
+        if (errorMessage) {
+          this.showToast(errorMessage);
+        }
+      });
   }
 
   public ionViewWillLeave() {
