@@ -78,5 +78,10 @@ export class HomePage {
       showCloseButton: true,
     });
     toast.present();
+
+    toast.onDidDismiss(() => {
+      this.store.dispatch(new karma.EraseError());
+      this.store.dispatch(new lunch.EraseError());
+    });
   }
 }

@@ -11,6 +11,7 @@ export const GET_CURRENT_LUNCHERS_SUCCESS = '[Lunch] Get Current Lunchers Succes
 export const SIGN_UP_FOR_LUNCH = '[Lunch] Sign Up For Lunch';
 export const SIGN_UP_FOR_LUNCH_FAILURE = '[Lunch] Sign Up For Lunch Failure';
 export const SIGN_UP_FOR_LUNCH_SUCCESS = '[Lunch] Sign Up For Lunch Success';
+export const ERASE_ERROR = '[Lunch] Erase error message';
 
 export class GetWinners implements Action {
   public readonly type = GET_WINNERS;
@@ -58,6 +59,10 @@ export class SignUpForLunchFailure implements Action {
   constructor(public payload: string) {}
 }
 
+export class EraseError implements Action {
+  public readonly type = ERASE_ERROR;
+}
+
 export type Actions =
   | GetWinners
   | GetWinnersSuccess
@@ -67,4 +72,5 @@ export type Actions =
   | GetCurrentLunchersFailure
   | SignUpForLunch
   | SignUpForLunchSuccess
-  | SignUpForLunchFailure;
+  | SignUpForLunchFailure
+  | EraseError;

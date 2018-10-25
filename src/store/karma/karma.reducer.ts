@@ -33,6 +33,12 @@ export function reducer(state: State = initialState, action: karma.Actions): Sta
         errorMessage: action.payload,
       };
     }
+    case karma.ERASE_ERROR: {
+      return {
+        ...state,
+        errorMessage: null,
+      };
+    }
     default: {
       return state;
     }

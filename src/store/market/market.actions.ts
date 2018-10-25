@@ -74,5 +74,5 @@ export type Actions =
   | PlaceLimitOrderFailure
   | PlaceMarketOrder
   | PlaceMarketOrderSuccess
-  | EraseError
-  | PlaceMarketOrderFailure;
+  | PlaceMarketOrderFailure
+  | EraseError;

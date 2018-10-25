@@ -65,6 +65,12 @@ export function reducer(state: State = initialState, action: lunch.Actions): Sta
         errorMessage: action.payload,
       };
     }
+    case lunch.ERASE_ERROR: {
+      return {
+        ...state,
+        errorMessage: null,
+      };
+    }
     default: {
       return state;
     }
