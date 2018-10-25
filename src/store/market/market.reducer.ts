@@ -51,6 +51,9 @@ export function reducer(state: State = initialState, action: market.Actions): St
         errorMessage: null,
       };
     }
+    default: {
+      return state;
+    }
   }
 }
 

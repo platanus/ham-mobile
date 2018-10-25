@@ -63,8 +63,6 @@ export class PlaceMarketOrderFailure implements Action {
 
 export class EraseError implements Action {
   public readonly type = ERASE_ERROR;
-
-  constructor(public payload: string) {}
 }
 
 export type Actions =
