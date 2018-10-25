@@ -3,8 +3,6 @@ import { NavController, ToastController, Toast } from 'ionic-angular';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { MarketPage } from '../market/market';
-import { Subject } from 'rxjs/Subject';
-import { merge } from 'rxjs/operators/merge';
 
 import * as fromRoot from '../../store';
 import * as karma from '../../store/karma/karma.actions';

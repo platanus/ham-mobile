@@ -1,6 +1,4 @@
 /* tslint:disable typedef */
-import { createSelector } from '@ngrx/store';
-
 import * as karma from './karma.actions';
 
 export interface State {

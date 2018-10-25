@@ -1,6 +1,4 @@
 /* tslint:disable typedef */
-import { createSelector } from '@ngrx/store';
-
 import * as lunch from './lunch.actions';
 
 export interface State {
