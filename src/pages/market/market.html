@@ -1,32 +1,29 @@
-<ion-content style="background-image: linear-gradient(180deg, #DCEBFD 0%, #6B9FDE 100%); margin: 0px;">
-  <ion-grid style="padding: 0px;">
-    <div style="background-color: white; margin: 0px;border-bottom-left-radius: 20px; border-bottom-right-radius: 20px">
+<ion-content>
+  <ion-grid>
+    <div>
       <ion-row>
-        <img src="../../assets/imgs/chevron-left.svg" (click)="goBack()" style="height: 40px;margin-top: 12pt; margin-left: 15pt;" fill="#CCD9EB"/>
+        <img class='back' src='../../assets/imgs/chevron-left.svg' (click)='goBack()'/>
       </ion-row>
-      <ion-row style="margin: auto;">
-        <ion-col text-center>
-          <img src="../../assets/imgs/coin.png" style="margin: auto; height: 70px;margin-top: 12pt;"/>
-          <span style="font-size: 20pt; display: block;margin-top: 10px;">Mi Karma: {{karma$ | async}}</span>
-          <p style="font-size: 14pt; color: #A0AAB8; margin: 30px auto;">“Karma-karma-karma-karma-karma chameleon 🎶”</p>
+      <ion-row>
+        <ion-col>
+          <img class='coin' src='../../assets/imgs/coin.png'/>
+          <span>Mi Karma: {{karma$ | async}}</span>
+          <p class='song'>“Karma-karma-karma-karma-karma chameleon 🎶”</p>
         </ion-col>
       </ion-row>
     </div>
 
-    <div style="background-color: white; margin: 0px;border-radius: 10px; width: 95%; margin: 30px auto;" *ngIf="limitOrders$ | async; let limitOrders">
-      <ion-row style="padding: 0px;">
-        <ion-col text-center style="padding: 0px;">
-          <img src="../../assets/imgs/pizza.png" style="margin: 20px; height: 60px;" alt=""/>
-          <span style="display: block; font-size: 20pt">Almuerzos en venta: {{limitOrders.length}}</span>
-          <div style="display: flex; padding: 0px;margin-top: 40px;">
-            <button ion-button block ion-button (click)="placeMarketOrder()" style="background-color: #6043E6;margin: 0px; height: 70px;border-radius: 0px!important;border-bottom-left-radius: 10px!important;font-size: 14pt;">Comprar</button>
-            <button ion-button block (click)="placeLimitOrder()" style="background-color: #E6B515;margin: 0px; height: 70px;border-radius: 0px!important;border-bottom-right-radius: 10px!important;font-size: 14pt; color: black;">Vender</button>
+    <div class='orders' *ngIf='limitOrders$ | async; let limitOrders'>
+      <ion-row>
+        <ion-col class='col-orders'>
+          <img src='../../assets/imgs/pizza.png'/>
+          <span>Almuerzos en venta: {{limitOrders.length}}</span>
+          <div class='flex-buttons'>
+            <button ion-button class='market-button' id='purple-button' (click)='placeMarketOrder()'>Comprar</button>
+            <button ion-button class='market-button' id='yellow-button' (click)='placeLimitOrder()'>Vender</button>
           </div>
         </ion-col>
       </ion-row>
     </div>
   </ion-grid>
 </ion-content>
-<ion-footer style="margin-bottom: -25px;" text-center>
-  <img src="../../assets/imgs/ham.png"/>
-</ion-footer>
