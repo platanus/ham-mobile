@@ -48,9 +48,12 @@ export class HomePage {
       });
 
     this.subscriptions.errors = this.store
-      .select(fromRoot.getKarmaErrorMessage)
-      .pipe(merge(this.store.select(fromRoot.getLunchErrorMessage)))
-      .subscribe(errorMessage => this.showToast(errorMessage));
+    .select(fromRoot.getMarketErrorMessage)
+    .subscribe(errorMessage => {
+      if (errorMessage) {
+        this.showToast(errorMessage);
+      }
+    });
   }
 
   public ionViewWillLeave() {
