@@ -59,6 +59,11 @@ export class MarketPage {
       position: 'bottom',
       showCloseButton: true,
     });
+
+    toast.onDidDismiss(() => {
+      this.store.dispatch(new market.eraseError());
+    });
+
     toast.present();
   }
 }

@@ -45,8 +45,11 @@ export function reducer(state: State = initialState, action: market.Actions): St
         errorMessage: action.payload,
       };
     }
-    default: {
-      return state;
+    case market.ERASE_ERROR: {
+      return {
+        ...state,
+        errorMessage: null,
+      };
     }
   }
 }
