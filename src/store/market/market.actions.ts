@@ -2,16 +2,16 @@
 
 import { Action } from '@ngrx/store';
 
-export const GET_LIMIT_ORDERS = '[Lunch] Get Limit Orders';
-export const GET_LIMIT_ORDERS_FAILURE = '[Lunch] Get Limit Orders Failure';
-export const GET_LIMIT_ORDERS_SUCCESS = '[Lunch] Get Limit Orders Success';
-export const PLACE_LIMIT_ORDER = '[Lunch] Place Limit Order';
-export const PLACE_LIMIT_ORDER_FAILURE = '[Lunch] Place Limit Order Failure';
-export const PLACE_LIMIT_ORDER_SUCCESS = '[Lunch] Place Limit Order Success';
-export const PLACE_MARKET_ORDER = '[Lunch] Place Market Order';
-export const PLACE_MARKET_ORDER_FAILURE = '[Lunch] Place Market Order Failure';
-export const PLACE_MARKET_ORDER_SUCCESS = '[Lunch] Place Market Order Success';
-export const ERASE_ERROR = '[Lunch] Erase error message';
+export const GET_LIMIT_ORDERS = '[Market] Get Limit Orders';
+export const GET_LIMIT_ORDERS_FAILURE = '[Market] Get Limit Orders Failure';
+export const GET_LIMIT_ORDERS_SUCCESS = '[Market] Get Limit Orders Success';
+export const PLACE_LIMIT_ORDER = '[Market] Place Limit Order';
+export const PLACE_LIMIT_ORDER_FAILURE = '[Market] Place Limit Order Failure';
+export const PLACE_LIMIT_ORDER_SUCCESS = '[Market] Place Limit Order Success';
+export const PLACE_MARKET_ORDER = '[Market] Place Market Order';
+export const PLACE_MARKET_ORDER_FAILURE = '[Market] Place Market Order Failure';
+export const PLACE_MARKET_ORDER_SUCCESS = '[Market] Place Market Order Success';
+export const ERASE_ERROR = '[Market] Erase error message';
 
 export class GetLimitOrders implements Action {
   public readonly type = GET_LIMIT_ORDERS;
