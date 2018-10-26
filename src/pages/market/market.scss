@@ -5,11 +5,98 @@ page-market {
     align-items: 'center';
   }
 
-  .orden {
-    height: 75px;
+  ion-content {
+    background-image: linear-gradient(180deg, map-get($colors, light-blue-gradient) 0%, map-get($colors, blue-gradient) 100%);
+    // margin: 0px;
   }
 
-  .topmargin {
-    margin-top: 30px;
+  ion-row {
+    margin: auto;
+    margin-bottom: 0;
+  }
+
+  ion-grid {
+    div {
+      background-color: map-get($colors, light);
+      border-bottom-left-radius: 20px;
+      border-bottom-right-radius: 20px;
+    }
+
+    .orders {
+      border-radius: 10px;
+      width: 95%;
+      margin: 30px auto;
+      padding-top: 10px;
+      padding-bottom: 0;
+      margin-bottom: 20px;
+    }
+
+    .col-orders {
+      padding: 0;
+      width: 100%;
+    }
+
+    .flex-buttons {
+      margin-top: 40px;
+      padding: 0;
+    }
+  }
+
+  ion-col {
+    text-align: center;
+  }
+
+  .market-button {
+    margin: 0;
+    width: 50%;
+    height: 70px;
+    border-radius: 0;
+    font-size: 14pt;
+  }
+
+  #purple-button {
+    background-color: map-get($colors, purple-button);
+    color: map-get($colors, light);
+    border-bottom-left-radius: 10px;
+    float: left;
+  }
+
+  #yellow-button {
+    background-color: map-get($colors, yellow-button);
+    color: map-get($colors, dark);
+    border-bottom-right-radius: 10px;
+    float: right;
+  }
+
+  img {
+    margin: auto;
+  }
+
+  .song {
+    font-size: 14pt;
+    color: map-get($colors, gray-text);
+    margin: 30px auto;
+  }
+
+  .back {
+    height: 40px;
+    margin-top: 12pt;
+    margin-left: 15pt;
+  }
+
+  .coin {
+    height: 60px;
+    margin-top: 12pt;
+  }
+
+  .pizza {
+    height: 60px;
+    margin: 20px;
+  }
+
+  span {
+    font-size: 20pt;
+    display: block;
+    margin-top: 10px;
   }
 }

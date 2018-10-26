@@ -13,23 +13,52 @@
     }
   }
 
-  ion-item {
-    border-color: #fff;
-    &.stripped {
-      background: repeating-linear-gradient(45deg, #f6fafc, #f6fafc 15px, #fff 15px, #fff 30px);
+  ion-card {
+    border-radius: 12pt;
+    border: 1pt solid map-get($colors, light-blue-gradient);
+
+    ion-card-header {
+      font-size: 16pt;
+      font-weight: 600;
+      height: 40pt;
+      border-bottom: 3px solid map-get($colors, light-blue-gradient);;
+    }
+
+    ion-item {
+      border-color: #fff;
+      padding: 7pt;
+
+      &.stripped {
+        background: repeating-linear-gradient(45deg, #f6fafc, #f6fafc 15px, #fff 15px, #fff 30px);
+      }
+
+      ion-avatar {
+        margin-left: 5pt;
+      }
+
+      h2 {
+        font-size: 16pt;
+        text-transform: capitalize;
+      }
     }
   }
 
-  button{
+  span {
+    line-height: 36px;
+    margin-right: 6px;
+  }
+
+  button {
     height: 56pt;
-    -webkit-box-shadow: 0px 6px 0px #6043E6, 0px 3px 15px rgba(0,0,0,.4);
-    -moz-box-shadow: 0px 6px 0px #6043E6, 0px 3px 15px rgba(0,0,0,.4);
-    box-shadow: 0px 6px 0px #6043E6, 0px 3px 15px rgba(0,0,0,.4);
+    width: 94%;
+    -webkit-box-shadow: 0 6px 0 map-get($colors, purple-button), 0 3px 15px rgba(0, 0, 0, .4);
+    -moz-box-shadow: 0 6px 0 map-get($colors, purple-button), 0 3px 15px rgba(0, 0, 0, .4);
+    box-shadow: 0 6px 0 map-get($colors, purple-button), 0 3px 15px rgba(0, 0, 0, .4);
     margin: auto;
     font-size: 20px;
     display: block;
-    background: #6949FF;
-    letter-spacing: 0.8px;
+    background: map-get($colors, backgroung-purple-button);
+    letter-spacing: .8px;
     color: white;
     padding: 1em 2em;
     border: 0;
@@ -45,27 +74,31 @@
     margin-bottom: 10px;
 
     /** 3D Block Effect **/
-    -webkit-box-shadow: 0px 6px 0px #6043E6, 0px 3px 15px rgba(0,0,0,.4);
-    -moz-box-shadow: 0px 6px 0px #6043E6, 0px 3px 15px rgba(0,0,0,.4);
-    box-shadow: 0px 6px 0px #6043E6, 0px 3px 15px rgba(0,0,0,.4);
+    -webkit-box-shadow: 0 6px 0 map-get($colors, purple-button), 0 3px 15px rgba(0, 0, 0, .4);
+    -moz-box-shadow: 0 6px 0 map-get($colors, purple-button), 0 3px 15px rgba(0, 0, 0, .4);
+    box-shadow: 0 6px 0 map-get($colors, purple-button), 0 3px 15px rgba(0, 0, 0, .4);
 
     &:active {
       /** Remove 3D Block Effect on Click **/
       box-shadow: none;
       top: 10px;
-      background: #6949FF;
+      background: map-get($colors, backgroung-purple-button);
       margin-bottom: 0;
     }
 
     &:hover {
       opacity: 1;
-      background: #6949FF;
+      background: map-get($colors, backgroung-purple-button);
     }
 
-    &:active,&:focus{
+    &:active,
+    &:focus {
       outline: 0;
-      background: #6949FF;
+      background: map-get($colors, backgroung-purple-button);
     }
   }
 
+  .bottom-row {
+    margin: 10;
+  }
 }

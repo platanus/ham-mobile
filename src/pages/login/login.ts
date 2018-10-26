@@ -1,90 +1,75 @@
 import { HomePage } from './../home/home';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
-import { Storage } from "@capacitor/core";
-import { HTTP } from '@ionic-native/http';
-import { TabsPage } from '../tabs/tabs';
+import { IonicPage, ToastController, Toast } from 'ionic-angular';
+import { Store } from '@ngrx/store';
 
-/**
- * Generated class for the LoginPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import * as auth from '../../store/auth/auth.actions';
+import * as fromRoot from '../../store';
+import { takeUntil } from 'rxjs/operators/takeUntil';
+import { Subject } from 'rxjs/Subject';
 
 @IonicPage()
 @Component({
   selector: 'page-login',
   templateUrl: 'login.html',
 })
-
 export class LoginPage {
-  authForm: FormGroup;
-
-  constructor(public navCtrl: NavController, public navParams: NavParams,
-    public formBuilder: FormBuilder, private http: HTTP, private toastCtrl: ToastController){
-    this.authForm = formBuilder.group({
-      hamcode: ['', Validators.compose([Validators.required, Validators.minLength(4), Validators.maxLength(10)])],
+  public authForm: FormGroup;
+  private unsubscribe: Subject<void> = new Subject();
+  constructor(
+    private formBuilder: FormBuilder,
+    private toastCtrl: ToastController,
+    private store: Store<fromRoot.AppState>,
+  ) {
+    this.authForm = this.formBuilder.group({
+      hamCode: [
+        '',
+        Validators.compose([
+          Validators.required,
+          Validators.minLength(4),
+          Validators.maxLength(10),
+        ]),
+      ],
     });
   }
 
-  ionViewDidLoad() {
-    this.checkHamCode().then((result) => {
-      const hamcode = result.value
-      if(hamcode && parseInt(hamcode) >= 0){
-        this.navCtrl.push(HomePage);
-      }
-    })
+  public ionViewDidLoad() {
+    this.store
+      .select(fromRoot.getAuthErrorMessage)
+      .pipe(takeUntil(this.unsubscribe))
+      .subscribe(message => {
+        if (message) {
+          this.displayError(message);
+        }
+      });
   }
 
-  displayError(message) {
-    let toast = this.toastCtrl.create({
+  public ionViewWillLeave() {
+    // Unsubscribe from all managed subscriptions
+    this.unsubscribe.next();
+    this.unsubscribe.unsubscribe();
+  }
+
+  public onSubmit() {
+    this.sendCode(this.hamCode.value);
+  }
+
+  private displayError(message: string) {
+    let toast: Toast = this.toastCtrl.create({
       message: message,
       duration: 2000,
-      position: 'bottom'
+      position: 'bottom',
+      showCloseButton: true,
     });
     toast.present();
   }
 
-  checkHamCode() {
-    const hamcode = Storage.get({ key: 'hamcode' })
-    return hamcode
+  private sendCode(hamCode: string) {
+    this.store.dispatch(new auth.Login(hamCode));
   }
 
-  onSubmit(value: any): void {
-    this.sendCode(value.hamcode)
-  }
-
-  async storeInitialData(code, karma){
-    await Storage.set({
-      key: 'karma',
-      value: karma
-    })
-    await Storage.set({
-      key: 'hamcode',
-      value: code
-    })
-  }
-
-  sendCode(code) {
-    if(!code) return
-    const headers ={
-      'Content-Type':  'application/json',
-      'X-AUTH': code
-    }
-
-    this.http.get('http://pl-ham.herokuapp.com/karma', {}, headers)
-      .then(
-        response => {
-          const karma = JSON.parse(response.data).karma
-          this.storeInitialData(code, karma)
-          this.navCtrl.push(TabsPage);
-        },
-        err => {
-          const errorMessage = JSON.parse(err.error).message
-          this.displayError(errorMessage)
-        }
-      )
+  private get hamCode() {
+    return this.authForm.get('hamCode');
   }
 }

@@ -1,141 +1,85 @@
-import { Component, ViewChild, ElementRef, OnInit } from '@angular/core';
-import { HTTP } from '@ionic-native/http';
-import { NavController, ToastController } from 'ionic-angular';
-import { Storage } from "@capacitor/core";
+import { Component } from '@angular/core';
+import { NavController, ToastController, Toast } from 'ionic-angular';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs/Observable';
 import { MarketPage } from '../market/market';
+
+import * as fromRoot from '../../store';
+import * as karma from '../../store/karma/karma.actions';
+import * as lunch from '../../store/lunch/lunch.actions';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'page-home',
-  templateUrl: 'home.html'
+  templateUrl: 'home.html',
 })
-export class HomePage implements OnInit {
-  @ViewChild('willLunchButton')
-  willLunchButton: ElementRef
-  private karma: string
-  private hamcode: string
-  private lunchers: any
-  private lunchersAmount: any
-
-  constructor(public navCtrl: NavController, private http: HTTP, private toastCtrl: ToastController){
-    Storage.get({key: 'karma'}).then((resp) => {
-      this.karma = resp.value;
-    })
-    Storage.get({key: 'hamcode'}).then((resp) => {
-      this.hamcode = resp.value
-      this.updateKarma(this.hamcode);
-      this.getWinningLunchers(this.hamcode);
-    })
+export class HomePage {
+  public karma$: Observable<string>;
+  public winners$: Observable<string[]>;
+  public hamcode: string;
+  public lunchers: any;
+  private subscriptions: {[key: string]: Subscription} = {};
+  private waitingForResponse: boolean;
+  constructor(
+    public navCtrl: NavController,
+    private toastCtrl: ToastController,
+    private store: Store<fromRoot.AppState>,
+  ) {
+    this.karma$ = this.store.select(fromRoot.getKarma);
+    this.winners$ = this.store.select(fromRoot.getLunchWinners);
   }
 
-  ngOnInit() {
-    this.updateKarma(this.hamcode);
-    this.getWinningLunchers(this.hamcode);
-  }
+  public ionViewWillEnter() {
+    this.store.dispatch(new karma.GetKarma());
+    this.store.dispatch(new lunch.GetWinners());
 
-  ionViewWillEnter() {
-    this.updateKarma(this.hamcode);
-    this.getWinningLunchers(this.hamcode);
-  }
-  
-  updateKarma(hamcode){
-    if(!hamcode) return
-    const headers = {
-      'Content-Type':  'application/json',
-      'X-AUTH': hamcode
-    }
-    this.http.get('http://pl-ham.herokuapp.com/karma', {}, headers)
-    .then(
-      response => {
-        const karma = JSON.parse(response.data).karma;
-        this.karma = karma;
-        Storage.set({
-          key: 'karma',
-          value: karma
-        })
-      },
-      err => {
-        const errorMessage = JSON.parse(err.error).message;
+    this.subscriptions.lunchers = this.store
+      .select(fromRoot.getLunchers)
+      .subscribe(lunchers => {
+        if (this.waitingForResponse) {
+          const message: string = `Hmm.. Ya van ${
+            lunchers.length
+          } que les gustaría almorzar aquí hoy.`;
+          this.showToast(message);
+          this.waitingForResponse = false;
+        }
+      });
+
+    this.subscriptions.errors = this.store
+    .select(fromRoot.getMarketErrorMessage)
+    .subscribe(errorMessage => {
+      if (errorMessage) {
         this.showToast(errorMessage);
       }
-    )
-  }
-
-  getWinningLunchers(hamcode){
-    if(!hamcode) return
-    const headers = {
-      'Content-Type':  'application/json',
-      'X-AUTH': hamcode
-    }
-
-    this.http.get('http://pl-ham.herokuapp.com/winning_lunchers', {}, headers)
-    .then(
-      response => {
-        const lunchers = JSON.parse(response.data).winning_lunchers;
-        this.lunchers = lunchers;
-        this.lunchersAmount = lunchers.length;
-      },
-      err => {
-        const errorMessage = JSON.parse(err.error).message;
-        this.showToast(errorMessage);
-      }
-    )
-  }
-
-  showToast(message) {
-    let toast = this.toastCtrl.create({
-      message: message,
-      duration: 2000,
-      position: 'bottom'
     });
-    toast.present();
   }
 
-  navigateBuySell() {
+  public ionViewWillLeave() {
+    // Unsubscribe from all managed subscriptions
+    Object.keys(this.subscriptions).forEach((sub) => this.subscriptions[sub].unsubscribe());
+  }
+
+  public willLunch() {
+    this.store.dispatch(new lunch.SignUpForLunch());
+    this.waitingForResponse = true;
+  }
+
+  public navigateBuySell() {
     this.navCtrl.push(MarketPage);
   }
 
-  howManyWantToLunch(hamcode){
-    const headers = {
-      'Content-Type':  'application/json',
-      'X-AUTH': hamcode
-    }
+  private showToast(message: string) {
+    let toast: Toast = this.toastCtrl.create({
+      message: message,
+      duration: 2000,
+      position: 'bottom',
+      showCloseButton: true,
+    });
+    toast.present();
 
-    this.http.get('http://pl-ham.herokuapp.com/current_lunchers', {}, headers)
-    .then(
-      response => {
-        const wantToLunch = JSON.parse(response.data).current_lunchers.length;
-        this.showToast('Hmm.. Ya van ' + wantToLunch + ' que les gustaría almorzar aquí hoy.');
-      },
-      err => {
-        const errorMessage = JSON.parse(err.error).message;
-        this.showToast(errorMessage);
-      }
-    )
-  }
-
-  willLunch(){
-    Storage.get({key: 'hamcode'}).then((resp) => {
-      const hamcode = resp.value;
-      const headers = {
-        'Content-Type':  'application/json',
-        'X-AUTH': hamcode
-      }
-
-      this.http.post('http://pl-ham.herokuapp.com/current_lunchers', {}, headers)
-      .then(
-        response => {
-          const success = JSON.parse(response.data).success;
-          if(success){
-            this.howManyWantToLunch(hamcode);
-          } else {
-            this.showToast("Error :( ");
-          }
-        },
-        err => {
-          const errorMessage = JSON.parse(err.error).message;
-          this.showToast(errorMessage);
-        }
-      )
-    })
+    toast.onDidDismiss(() => {
+      this.store.dispatch(new karma.DismissError());
+      this.store.dispatch(new lunch.DismissError());
+    });
   }
 }

@@ -7,9 +7,9 @@
   <div class="star bright medium" style="top: 31.16%; right: 4.69%"></div>
   <div class="star bright medium" style="top: 77.29%; left: 4.06%"></div>
   <ion-footer>
-    <form text-center [formGroup]="authForm" (ngSubmit)="onSubmit(authForm.value)">
-      <ion-input type="tel" text-center formControlName="hamcode" required placeholder="Dile a ham authme! Pega el código acá"></ion-input>
-      <button class="login clicky"	ion-button (click)="sendCode()">Login</button>
+    <form text-center [formGroup]="authForm" (ngSubmit)="onSubmit()">
+      <ion-input type="tel" text-center formControlName="hamCode" required placeholder="Dile a ham authme! Pega el código acá"></ion-input>
+      <button class="login clicky" ion-button>Login</button>
     </form>
   </ion-footer>
 </ion-content>

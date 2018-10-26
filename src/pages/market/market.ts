@@ -1,98 +1,73 @@
-import { Component, OnInit  } from '@angular/core';
-import { NavController, ToastController } from 'ionic-angular';
+import { Component } from '@angular/core';
+import { NavController, ToastController, Toast } from 'ionic-angular';
 import { Storage } from '@capacitor/core';
-import { HamProvider } from '../../providers/ham/ham';
+
+import * as karma from '../../store/karma/karma.actions';
+import * as market from '../../store/market/market.actions';
+import { Store } from '@ngrx/store';
+import * as fromRoot from '../../store';
+import { Observable } from 'rxjs/Observable';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'page-market',
   templateUrl: 'market.html',
 })
-export class MarketPage implements OnInit {
-  private karma: string;
-  private hamcode: string;
-  private lunchers: any;
-  private lunchersAmount: any;
-  private limit_orders: any;
-  private limit_ordersAmount: any;
-  private status: boolean;
+export class MarketPage {
+  public karma$: Observable<string>;
+  public limitOrders$: Observable<string[]>;
+  private subscriptions: {[key: string]: Subscription} = {};
 
-  constructor(public navCtrl: NavController, public hamProvider: HamProvider, private toastCtrl: ToastController) {
-    Storage.get({key: 'hamcode'}).then((resp) => {
-      this.hamcode = resp.value;
-      this.refresh();
-    });
+  constructor(
+    public navCtrl: NavController,
+    private toastCtrl: ToastController,
+    private store: Store<fromRoot.AppState>,
+  ) {
+    this.karma$ = this.store.select(fromRoot.getKarma);
+    this.limitOrders$ = this.store.select(fromRoot.getMarketLimitOrders);
   }
 
-   ngOnInit() {
-    this.refresh();
+  public ionViewWillEnter() {
+    this.store.dispatch(new karma.GetKarma());
+
+    this.subscriptions.errors = this.store
+      .select(fromRoot.getMarketErrorMessage)
+      .subscribe(errorMessage => {
+        if (errorMessage) {
+          this.showToast(errorMessage);
+        }
+      });
   }
 
-  ionViewWillEnter() {
-    this.refresh();
+  public ionViewWillLeave() {
+    // Unsubscribe from all managed subscriptions
+    Object.keys(this.subscriptions).forEach((sub) => this.subscriptions[sub].unsubscribe());
   }
 
-  private refresh() {
-    this.updateKarma(this.hamcode);
-    this.getWinningLunchers(this.hamcode);
-    this.getLimitOrders(this.hamcode);
+  public goBack() {
+    this.navCtrl.pop();
   }
 
-  private updateKarma(hamcode) {
-    this.hamProvider.getKarma(hamcode)
-    .then(response => {
-      this.karma = response.karma;
-    });
+  public placeLimitOrder() {
+    this.store.dispatch(new market.PlaceLimitOrder());
   }
 
-  private getWinningLunchers(hamcode) {
-    this.hamProvider.getWinningLunchers(hamcode)
-    .then(response => {
-      this.lunchers = response.winning_lunchers;
-      this.lunchersAmount = this.lunchers.length;
-    });
+  public placeMarketOrder() {
+    this.store.dispatch(new market.PlaceMarketOrder());
   }
 
-  private getLimitOrders(hamcode) {
-    this.hamProvider.getLimitOrders(hamcode)
-    .then(response => {
-      this.limit_orders = response.limit_orders;
-      this.limit_ordersAmount = this.limit_orders.length;
-    });
-  }
-
-  private placeLimitOrder() {
-    this.hamProvider.placeLimitOrder(this.hamcode)
-    .then(response => {
-      this.status = response.status;
-      this.refresh();
-      this.showToast(this.status)
-    }).catch(err => {
-      this.showToast(JSON.parse(err.error).message)
-    });
-  }
-
-  private placeMarketOrder(hamcode) {
-    this.hamProvider.placeMarketOrder(this.hamcode)
-    .then(response => {
-      this.status = response.status;
-      this.refresh();
-      this.showToast(this.status)
-    }).catch(err => {
-      this.showToast(JSON.parse(err.error).message)
-    });
-  }
-
-  private showToast(message) {
-    let toast = this.toastCtrl.create({
+  private showToast(message: string) {
+    let toast: Toast = this.toastCtrl.create({
       message: message,
       duration: 2000,
-      position: 'bottom'
+      position: 'bottom',
+      showCloseButton: true,
     });
+
+    toast.onDidDismiss(() => {
+      this.store.dispatch(new market.DismissError());
+    });
+
     toast.present();
   }
-
-  goBack() {
-    this.navCtrl.pop()
-  }
 }
-
