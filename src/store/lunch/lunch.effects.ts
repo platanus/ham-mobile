@@ -21,7 +21,6 @@ export class LunchEffects {
         Observable.from(this.lunchService.getCurrentLunchers(hamCode)).pipe(
           map(lunchers => new lunchActions.GetCurrentLunchersSuccess(lunchers)),
           catchError(err => {
-            console.error(err);
             return Observable.of({
               type: lunchActions.GET_CURRENT_LUNCHERS_FAILURE,
               payload: err,
@@ -38,7 +37,6 @@ export class LunchEffects {
       Observable.from(this.lunchService.getWinners(hamCode)).pipe(
         map(winners => new lunchActions.GetWinnersSuccess(winners)),
         catchError(err => {
-          console.error(err);
           return Observable.of({
             type: lunchActions.GET_WINNERS_FAILURE,
             payload: err,
@@ -58,7 +56,6 @@ export class LunchEffects {
           map(_ => new lunchActions.SignUpForLunchSuccess()),
           tap(() => this.store.dispatch(new lunchActions.GetCurrentLunchers())),
           catchError(err => {
-            console.error(err);
             return Observable.of({
               type: lunchActions.SIGN_UP_FOR_LUNCH_FAILURE,
               payload: err,

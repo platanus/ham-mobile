@@ -21,7 +21,6 @@ export class MarketEffects {
         Observable.from(this.marketService.getLimitOrders(hamCode)).pipe(
           map(orders => new marketActions.GetLimitOrdersSuccess(orders)),
           catchError(err => {
-            console.error(err);
             return Observable.of({
               type: marketActions.GET_LIMIT_ORDERS_FAILURE,
               payload: err,
@@ -41,7 +40,6 @@ export class MarketEffects {
           map(status => new marketActions.PlaceLimitOrderSuccess(status)),
           tap(() => this.store.dispatch(new marketActions.GetLimitOrders())),
           catchError(err => {
-            console.error(err);
             return Observable.of({
               type: marketActions.PLACE_LIMIT_ORDER_FAILURE,
               payload: err,
@@ -61,7 +59,6 @@ export class MarketEffects {
             map(status => new marketActions.PlaceMarketOrderSuccess(status)),
             tap(() => this.store.dispatch(new marketActions.GetLimitOrders())),
             catchError(err => {
-              console.error(err);
               return Observable.of({
                 type: marketActions.PLACE_MARKET_ORDER_FAILURE,
                 payload: err,

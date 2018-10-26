@@ -18,7 +18,6 @@ export class AuthEffects {
       Observable.from(this.authService.login(payload)).pipe(
         map(_ => new authActions.LoginSuccess()),
         catchError(err => {
-          console.error(err);
           return Observable.of({
             type: authActions.LOGIN_FAILURE,
             payload: err,

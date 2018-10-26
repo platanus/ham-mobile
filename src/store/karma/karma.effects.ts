@@ -19,7 +19,6 @@ export class KarmaEffects {
       Observable.from(this.karmaService.getKarma(hamCode)).pipe(
         map(karma => new karmaActions.GetKarmaSuccess(karma)),
         catchError(err => {
-          console.error(err);
           return Observable.of({
             type: karmaActions.GET_KARMA_FAILURE,
             payload: err,
