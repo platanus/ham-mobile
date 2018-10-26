@@ -78,8 +78,8 @@ export class HomePage {
     toast.present();
 
     toast.onDidDismiss(() => {
-      this.store.dispatch(new karma.EraseError());
-      this.store.dispatch(new lunch.EraseError());
+      this.store.dispatch(new karma.DismissError());
+      this.store.dispatch(new lunch.DismissError());
     });
   }
 }

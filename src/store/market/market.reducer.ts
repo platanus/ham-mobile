@@ -42,7 +42,7 @@ export function reducer(state: State = initialState, action: market.Actions): St
         errorMessage: action.payload,
       };
     }
-    case market.ERASE_ERROR: {
+    case market.DISMISS_ERROR: {
       return {
         ...state,
         errorMessage: null,

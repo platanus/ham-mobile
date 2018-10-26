@@ -65,7 +65,7 @@ export class MarketPage {
     });
 
     toast.onDidDismiss(() => {
-      this.store.dispatch(new market.EraseError());
+      this.store.dispatch(new market.DismissError());
     });
 
     toast.present();

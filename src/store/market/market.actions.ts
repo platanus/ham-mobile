@@ -11,7 +11,7 @@ export const PLACE_LIMIT_ORDER_SUCCESS = '[Market] Place Limit Order Success';
 export const PLACE_MARKET_ORDER = '[Market] Place Market Order';
 export const PLACE_MARKET_ORDER_FAILURE = '[Market] Place Market Order Failure';
 export const PLACE_MARKET_ORDER_SUCCESS = '[Market] Place Market Order Success';
-export const ERASE_ERROR = '[Market] Erase error message';
+export const DISMISS_ERROR = '[Market] Dismiss error message';
 
 export class GetLimitOrders implements Action {
   public readonly type = GET_LIMIT_ORDERS;
@@ -61,8 +61,8 @@ export class PlaceMarketOrderFailure implements Action {
   constructor(public payload: string) {}
 }
 
-export class EraseError implements Action {
-  public readonly type = ERASE_ERROR;
+export class DismissError implements Action {
+  public readonly type = DISMISS_ERROR;
 }
 
 export type Actions =
@@ -75,4 +75,4 @@ export type Actions =
   | PlaceMarketOrder
   | PlaceMarketOrderSuccess
   | PlaceMarketOrderFailure
-  | EraseError;
+  | DismissError;
